@@ -4,6 +4,8 @@ subtitle: More material coming soon!
 date: 2021-02-24T15:41:44-06:00
 publishdate: 2021-02-24T15:41:44-06:00
 draft: false
+tags: ["uncategorized"]
+type: post
 ---
 
 Thank you for visiting our tech blog! We have lots of topics to cover, and
