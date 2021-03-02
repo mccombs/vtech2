@@ -5,6 +5,7 @@ date: 2021-02-24T15:41:44-06:00
 type: page
 draft: false
 tags: ["uncategorized"]
+authors: ["williambaxter"]
 ---
 
 Like any tech-based business we work on many problems unique to our shop.  We
@@ -22,9 +23,9 @@ freewheeling communication and challenge.
 We have a hard time finding developers who can keep up with us. Their senior
 is our junior.
 
-Do you want to join us? Try out some of the questions we post here in the blog
-based on what we encounter in our work. Broad and deep skills and strong
-desire to learn are essential. Answer some of the questions and show us your
-strengths.
+Do you want to join us? Try out some of the [questions]({{< relref "/tags/question" >}}) we
+post here in the blog based on what we encounter in our work. Broad and deep
+skills and strong desire to learn are essential. Answer some of the questions
+and show us your strengths.
 
 

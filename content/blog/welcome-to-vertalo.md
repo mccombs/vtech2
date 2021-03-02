@@ -6,6 +6,7 @@ publishdate: 2021-02-24T15:41:44-06:00
 draft: false
 tags: ["uncategorized"]
 type: post
+authors: ["williambaxter"]
 ---
 
 Thank you for visiting our tech blog! We have lots of topics to cover, and

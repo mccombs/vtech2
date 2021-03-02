@@ -20,6 +20,8 @@ help:
 	@echo ""
 	@echo "deploy: deploy content for the site to AWS"
 	@echo ""
+	@echo "blog.%: create a new blog entry draft with name \$$*.md"
+	@echo ""
 
 # Assume dpkg for linux-64
 setup:
@@ -36,6 +38,9 @@ website:
 
 deploy: clean website
 	aws s3 sync --delete --exclude '.DS_Store' --exclude '*/.DS_Store' --cache-control 60 './public' 's3://website.vertalo.com/$(prefix)/'
+
+blog.%:
+	hugo new 'blog/$*.md'
 
 clean:
 	rm -fr ./public
