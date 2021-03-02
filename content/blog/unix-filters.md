@@ -6,7 +6,7 @@ subtitle: "A powerful building block"
 image: ""
 tags: ["question","unix"]
 authors: ["williambaxter"]
-draft: true
+draft: false
 ---
 
 What is a unix filter?
