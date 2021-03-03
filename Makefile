@@ -11,6 +11,7 @@ help:
 	@echo "Targets:"
 	@echo ""
 	@echo "help: print this message"
+	@echo "  Use the AWS_PROFILE env var to set profile for any target"
 	@echo ""
 	@echo "setup: install hugo"
 	@echo ""
