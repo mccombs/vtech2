@@ -1,12 +1,12 @@
 ---
-title: "Terraform Module as Function"
+title: "Terraform Modules as Functions"
 type: "post"
 date: 2021-03-03T19:40:21-06:00
-subtitle: ""
+subtitle: "Using no-resource modules to build config maps"
 image: ""
 tags: ["infrastructure","question"]
 authors: ["williambaxter"]
-draft: true
+draft: false
 ---
 
 How do you create user-defined functions in
@@ -17,12 +17,12 @@ a [module](https://www.terraform.io/docs/language/modules/develop/index.html)
 in terraform resembles that of a function with side effects implemented
 through resources. We use zero-resource modules as Terraform functions. Below
 is a simple example use of `for_each_slice` taking input from
-`var.config.hosts`. For each element in the input map it slices out of the
+`var.config.hosts`. For each element in the input map it slices out the
 corresponding value the named keys, throwing an error for missing keys or keys
-that a requirement, such as being a non-empty string.
+that fail a requirement, such as being a non-empty string.
 
 
-```
+```tf
 module for_each_slice {
   source = "../for_each_slice"
 
@@ -53,7 +53,7 @@ module for_each_slice {
 The definition of `for_each_slice` looks like this:
 
 
-```
+``` tf
 locals {
   data = var.data
   keys = var.keys
@@ -88,12 +88,13 @@ locals {
 }
 ```
 
-Combined with the built-in `merge()` function, `for_each_slice` lets us to
-build maps of parameters containing validated keys, throwing errors in case of
+Combined with the built-in `merge()` function, `for_each_slice` lets us build
+maps of parameters containing validated keys, throwing errors in case of
 violation. We use this approach to feed complex configurations to modules that
-create resources, without needing the awkward use of individual module
-parameters. The separation of configuration construction and resource creation
-promotes reuse of both functions and resource-creating modules.
+create resources, without the awkward use of individual module parameters. The
+separation of configuration construction and resource creation promotes reuse
+of both function modules and resource-creating modules across our cloud
+infrastructure.
 
 How do you use Terraform modules?
 
