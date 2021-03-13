@@ -34,9 +34,9 @@ What is the difference between `const foo = Object.create(null)` and `const foo 
 What is the relationship between `a` and `b` in this code:
 ```
 var foo = function(x) {
-  var F = function() {};
-  F.prototype = x;
-  return new F();
+  var F = function() {}
+  F.prototype = x
+  return new F()
 }
-var b = foo(a);
+var b = foo(a)
 ```
