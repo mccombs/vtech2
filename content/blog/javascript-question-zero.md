@@ -6,7 +6,7 @@ subtitle: "How are numbers stored?"
 image: ""
 tags: ["javascript", "question"]
 authors: ["nolanaguirre"]
-draft: true
+draft: false
 ---
 
 What does .1 + .2 equal?
