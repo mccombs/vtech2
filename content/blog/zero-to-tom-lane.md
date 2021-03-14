@@ -66,7 +66,8 @@ experience with PostgreSQL.
 On a scale from Zero to [Tom
 Lane](https://en.wikipedia.org/wiki/Tom_Lane_(computer_scientist)), how well do you know PostgreSQL?
 
-How do you use row-level security?
+How do you use
+[row-level security](https://www.postgresql.org/docs/13/ddl-rowsecurity.html)?
 
 What systems have you deployed using
 [PostGraphile](https://www.graphile.org/)
