@@ -83,7 +83,12 @@ googleAnalytics = "UA-114921168-8"
 
 [[menu.main]]
     name = "Tags"
-    url = "tags"
+    url = "tags/"
+    weight = 2
+
+[[menu.main]]
+    name = "Careers"
+    url = "careers/"
     weight = 3
 
 [[menu.main]]
@@ -99,4 +104,3 @@ googleAnalytics = "UA-114921168-8"
 
 [taxonomies]
     tag = "tags"
-
