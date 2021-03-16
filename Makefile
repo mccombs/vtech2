@@ -4,6 +4,9 @@
 prefix := tech
 website := $(prefix).vertalo.com
 
+# Subdirectories of content/
+subdirs := $(sort $(notdir $(shell find content -mindepth 1 -maxdepth 1 -type d)))
+
 ####
 
 help:
@@ -21,7 +24,10 @@ help:
 	@echo ""
 	@echo "deploy: deploy content for the site to AWS"
 	@echo ""
-	@echo "blog.%: create a new blog entry draft with name \$$*.md"
+	@echo "SUBDIR.%: create a new SUBDIR entry draft with name \$$*.md"
+	@echo "  SUBDIR is in {$(subdirs)}"
+	@echo ""
+	@echo ""
 	@echo ""
 
 # Assume dpkg for linux-64
@@ -35,13 +41,18 @@ local:
 
 website:
 	hugo
+	rm -fr public/partials
 	touch public
 
 deploy: clean website
 	aws s3 sync --delete --exclude '.DS_Store' --exclude '*/.DS_Store' --cache-control 60 './public' 's3://website.vertalo.com/$(prefix)/'
 
-blog.%:
-	hugo new 'blog/$*.md'
+define HUGO_NEW = 
+$(1).%:
+	hugo new '$(1)/$$*.md'
+endef
+
+$(foreach s,$(subdirs),$(eval $(call HUGO_NEW,$(s))))
 
 clean:
 	rm -fr ./public
