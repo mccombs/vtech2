@@ -6,7 +6,7 @@ subtitle: "Safety in constraints"
 image: ""
 tags: ["postgresql","database","question"]
 authors: ["williambaxter"]
-draft: true
+draft: false
 ---
 
 The PostgreSQL documentation has this to say in the context of
