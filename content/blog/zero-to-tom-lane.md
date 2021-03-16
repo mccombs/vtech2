@@ -51,13 +51,14 @@ This insert will succeed:
 INSERT INTO public.mytable VALUES ('more important','{}'::JSONB);
 ```
 
-What's going on here? We use `trigger_args` to pass arguments into the trigger
-function. It could leave them in place. For some use cases that's the right
-approach, and you don't need the `CHECK` clause. If those arguments are for
-table writers and not for table readers, then the `CHECK` clause ensures that
-the trigger has cleared them before the insert commits. A trigger that fails
-to clear the arguments will also fail to insert the row. So you can safely
-pass in arguments knowing they will not appear in the table.
+What's going on here? We use the `trigger_args` column to pass arguments into
+the trigger function as part of `NEW`. The function could leave the arguments
+in place in that column.  For some use cases that's the right approach, and
+you don't need the `CHECK` clause. If those arguments are for table writers
+and not for table readers, then the `CHECK` clause ensures that the trigger
+has cleared them before the insert commits. A trigger that fails to clear the
+arguments will also fail to commit the new row. So you can safely pass in
+arguments knowing they will not appear in the table.
 
 PostgreSQL is an amazing tool, and we make heavy use of it, including
 row-level security, and of course this constraint trick. Tell us about your
@@ -73,12 +74,4 @@ What systems have you deployed using
 [PostGraphile](https://www.graphile.org/)
 or
 [PostgREST](https://postgrest.org/)?
-
-
-
-
-
-
-
-
 
