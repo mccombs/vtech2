@@ -1,10 +1,12 @@
 ---
 title: Tech Careers at Vertalo
-subtitle: For the best and the brightest
-date: 2021-02-24T16:23:21-06:00
 type: page
-draft: true
+date: 2021-02-24T16:23:21-06:00
+subtitle: For the best and the brightest
+image: ""
 tags: []
+authors: []
+draft: false
 ---
 
 Vertalo is growing and hiring in Austin! The successful recruit will work hand

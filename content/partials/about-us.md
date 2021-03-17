@@ -1,4 +1,5 @@
 ---
+title: "About Us"
 draft: false
 private: true
 ---

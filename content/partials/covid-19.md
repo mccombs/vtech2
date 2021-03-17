@@ -1,7 +1,8 @@
 ---
 title: "Covid 19"
 date: 2021-03-16T18:44:47-05:00
-draft: true
+draft: false
+private: true
 ---
 
 ### COVID-19 considerations:
