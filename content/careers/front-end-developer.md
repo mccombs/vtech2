@@ -9,8 +9,7 @@ authors: []
 draft: false
 ---
 
-# Front End Developer - Austin, TX
-
+**Location:** Austin, TX
 
 **Salary:** $85,000 - $150,000 a year
 
