@@ -24,7 +24,7 @@ help:
 	@echo ""
 	@echo "deploy: deploy content for the site to AWS"
 	@echo ""
-	@echo "SUBDIR.%: create a new SUBDIR entry draft with name \$$*.md"
+	@echo "new.SUBDIR.%: create a new SUBDIR entry draft with name \$$*.md"
 	@echo "  SUBDIR is in {$(subdirs)}"
 	@echo ""
 	@echo ""
@@ -48,7 +48,7 @@ deploy: clean website
 	aws s3 sync --delete --exclude '.DS_Store' --exclude '*/.DS_Store' --cache-control 60 './public' 's3://website.vertalo.com/$(prefix)/'
 
 define HUGO_NEW = 
-$(1).%:
+new.$(1).%:
 	hugo new '$(1)/$$*.md'
 endef
 
