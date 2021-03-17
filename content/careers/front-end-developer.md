@@ -50,4 +50,4 @@ Our product is Vertalo, a blockchain-based cap table critical to the future of d
 
 {{< content covid-19.md >}}
 
-
+Send us your resume at hiring-tech@vertalo.com
