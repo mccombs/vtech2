@@ -12,6 +12,6 @@ private: true
 - Openresty
 - PostgreSQL
 - AWS (multiple services)
+- Terraform/Terragrunt
 - Ethereum, Tezos (and more chains to come)
 - FreeBSD
-
