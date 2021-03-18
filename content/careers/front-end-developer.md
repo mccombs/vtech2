@@ -45,7 +45,7 @@ draft: false
 
 {{< content benefits.md >}}
 
-{{< content schedule-full-time >}}
+{{< content schedule-full-time.md >}}
 
 {{< content covid-19.md >}}
 

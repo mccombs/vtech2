@@ -45,3 +45,7 @@ draft: false
 
 - [pgbouncer](https://www.pgbouncer.org/) 
 
+# We are hiring!
+
+Check out our [careers](/careers) page.
+
