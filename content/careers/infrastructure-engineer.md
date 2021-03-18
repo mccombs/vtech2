@@ -6,7 +6,7 @@ subtitle: "AWS, Terraform, UNIX"
 image: ""
 tags: ["careers"]
 authors: []
-draft: true
+draft: false
 ---
 
 **Location:** Austin, TX
@@ -37,6 +37,7 @@ Our product is Vertalo, a blockchain-based cap table critical to the future of d
 - 3+ years experience in UNIX sysadmin (including heavy shell scripting)
 - 3+ years experience with devops on AWS (including CloudFront, Lambda, EC2, S3 and other services)
 - 2+ years experience with Terraform
+- Experience with FreeBSD Ports, Poudriere, configinit a strong plus
 - **Ambitious** - you are looking specifically for a startup opportunity and the chance to hit it big
 - **Self-starting** - you're OK with some ambiguity and pushing until you figure things out
 - **Great at quickly making it work** - we iterate fast and you need to be able to keep up
