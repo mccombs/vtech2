@@ -8,6 +8,10 @@
         {{ if in .Params.tags "question" }}
           {{ partial "answer-question" . }}
         {{ end }}
+        {{ if in .Params.tags "careers" }}
+          {{ partial "careers-call-to-action" . }}
+        {{ end }}
+
 
         {{ if .Params.tags }}
           <div class="blog-tags">

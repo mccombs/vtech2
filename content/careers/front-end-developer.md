@@ -21,14 +21,13 @@ draft: false
 
 ## Full Job Description
 
-We are looking for a savvy and seasoned front-end developer here in Austin to work alongside the founders. The successful recruit will work hand in glove with the CTO and anchor a growing technical team. The upside potential is extremely large for the right candidate in terms of both cash compensation and equity. This is no mere job. It requires a founder's caring and curious mentality, and a burning desire to ship code to shape the future of decentralized finance.
+{{% job-intro %}}front-end developer{{% /job-intro %}}
 
-Our product is Vertalo, a blockchain-based cap table critical to the future of digital investment. Think of a traditional cap table reimagined for the emerging tokenized asset sector (meaning soon, all private assets). Our focus on digital assets and secondary liquidity sets us apart from larger incumbents. All this equates to a huge market and huge growth potential for our team. There are extensive near-term opportunities and longer-term exit scenarios for our company.
+{{< content "our-product.md" >}}
 
-*This is not a remote position. You will be required to work out of our offices here in Austin, TX.*
+{{< content "not-remote.md" >}}
 
 {{< content "stack.md" >}}
-
 
 *You will be focusing primarily on the front-end of our application, rapidly deploying product that appeals to our market, then figuring out how to scale it.*
 
@@ -50,4 +49,3 @@ Our product is Vertalo, a blockchain-based cap table critical to the future of d
 
 {{< content covid-19.md >}}
 
-Send us your resume at hiring-tech@vertalo.com
