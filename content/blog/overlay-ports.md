@@ -47,7 +47,7 @@ That makes a world of difference for port maintenance.
 We build ports for our AWS servers with poudriere with overlays. Our overlay
 ports include:
 
-- [moarvm](https://www.moarvm.org/)](https://www.moarvm.org/)
+- [moarvm](https://www.moarvm.org/)
 - [nqp](https://github.com/Raku/nqp)
 - [djbdns](https://cr.yp.to/djbdns.html)
 - [ligo](https://ligolang.org/)
