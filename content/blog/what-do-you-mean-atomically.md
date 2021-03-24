@@ -2,7 +2,7 @@
 title: "What Do You Mean Atomically"
 type: "post"
 date: 2021-03-24T07:09:25-05:00
-subtitle: "Know Your Filesystem"
+subtitle: "Know your filesystem"
 image: ""
 tags: ["question","unix"]
 authors: ["williambaxter"]
