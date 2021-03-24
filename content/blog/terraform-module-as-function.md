@@ -96,6 +96,8 @@ separation of configuration construction and resource creation promotes reuse
 of both function modules and resource-creating modules across our cloud
 infrastructure.
 
+### Questions
+
 How do you use Terraform modules?
 
 What usage have you invented that we should adopt?
