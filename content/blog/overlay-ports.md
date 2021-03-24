@@ -7,6 +7,7 @@ image: ""
 tags: ["freebsd","infrastructure","question"]
 authors: [williambaxter]
 draft: true
+# This is still crap. Don't publish!
 ---
 
 At Vertalo we use [FreeBSD Ports](https://www.freebsd.org/ports/) and
@@ -64,11 +65,12 @@ language-specific package managers, but using Ports ties them together with
 relative ease. And once built, pkg lets us deploy them swiftly and easily
 across as many servers with full scripting.
 
-
-What ports have you created?
+What port did you create most recently?
 
 Have you deployed a poudriere server? With overlays?
 
-How did you use a private package server to administer multiple hosts in
-a mixed-software environment?
+Are you a port maintainer?
+
+How did you configure a package server to administer a multi-host deployment
+environment?
 
