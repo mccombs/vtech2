@@ -25,6 +25,8 @@ After this we realized that perhaps this might be too tough of a question to be 
 
 What does it mean to be question zero though? Nothing of course, it's just a joke, but it is rather concerning. I'd urge all those who do not know the inner workings of JavaScript including the event loop, promises, data types and how objects work as a whole to look into it; it will lead you to have a much firmer grasp of the language.
 
+### Questions
+
 For those interested, a few more questions are below. If you know the answer to them, congratulations! They aren't as trivial to answer as you might've thought:
 
 * What is the functional difference between `{...foo, ...bar}` and `{...bar, ...foo}`? Assume foo and bar are objects.

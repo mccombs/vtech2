@@ -20,6 +20,8 @@ help:
 	@echo ""
 	@echo "local: serve content on localhost:1313"
 	@echo ""
+	@echo "weblocal: serve content on localhost:1313, a la production (no drafts)"
+	@echo ""
 	@echo "website: build content for the deployed site"
 	@echo ""
 	@echo "deploy: deploy content for the site to AWS"
@@ -38,6 +40,9 @@ setup:
 
 local:
 	hugo server -D --cleanDestinationDir --ignoreCache --noHTTPCache
+
+weblocal:
+	hugo server --cleanDestinationDir --ignoreCache --noHTTPCache
 
 website:
 	hugo

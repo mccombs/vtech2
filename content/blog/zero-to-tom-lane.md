@@ -64,6 +64,8 @@ PostgreSQL is an amazing tool, and we make heavy use of it, including
 row-level security, and of course this constraint trick. Tell us about your
 experience with PostgreSQL.
 
+### Questions
+
 On a scale from Zero to [Tom
 Lane](https://en.wikipedia.org/wiki/Tom_Lane_(computer_scientist)), how well do you know PostgreSQL?
 

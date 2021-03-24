@@ -6,18 +6,19 @@ subtitle: "Know Your Filesystem"
 image: ""
 tags: ["question","unix"]
 authors: ["williambaxter"]
-draft: true
+draft: false
 ---
 
 Once I worked on a project whose origin predated the widespread use of DNS.
 They used `/etc/hosts` files to map host names to IP addresses. This system
 had grown to thousands of hosts, and the `/etc/hosts` file was about 1M in
 size. After any update, which was handled by a sysadmin, they pushed this file
-to all production hosts. I once made a request for a change.
+to all production hosts.
 
-"Wow! You those files atomically when you push, right?"
+"Wow! You update those files atomically when you push, right?" I asked the
+sysadmin.
 
-"What do you mean, atomically?" asked the sysadmin.
+"What do you mean, atomically?" he asked.
 
 True story!
 
@@ -46,24 +47,26 @@ file systems are broadly similar in this regard.
 If you create a new file with `touch`, is that atomic? If not, what would
 a partially-created file look like? What about deleting a file with `rm`? What
 about `cp`? Have you ever copied a very large file in background and watched
-the destination grow in size on disk? What does that tell you about the
-atomicity of file copies? What about opening or closing a file? Renaming
-a file? If you are working on
-[NFS](https://en.wikipedia.org/wiki/Network_File_System) how does that change
-the answers?
+the destination grow in size on disk? What does that say about the atomicity
+of file copies? What about opening or closing a file? Renaming a file? If you
+are working on [NFS](https://en.wikipedia.org/wiki/Network_File_System) how
+does that change the answers?
 
 ### Applying the knowledge
 
 Understanding these basic file-system semantics lets you use the file system
-as an ad-hoc database. You can build processing queues in a directory. You can
-provide data to programs without risking an incomplete delivery. You can
-update your `/etc/hosts` file knowing that no reader will encounter a partial
-host list.
+as an ad-hoc database. You can provide data to programs without risking an
+incomplete delivery. You can build processing queues in a directory. You can
+update your `/etc/hosts` file knowing that no reader will encounter
+a malformed file.
 
 Using atomic file-system operations you can avoid a whole class of errors due
 to incomplete inputs or intermediate results in a data processing sequence.
-Your systems will be more robust and predictable. These are simple and
-powerful tools available on any unix host, and well worth knowing.
+Your systems will be more robust and predictable.
+
+The file system is a ubiquitous, simple, and powerful tool available across
+unix environments. Learning how it works is well worth the effort. It will
+make you a better sysadmin and programmer.
 
 
 ### Questions
