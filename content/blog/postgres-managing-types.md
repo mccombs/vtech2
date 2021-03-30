@@ -9,8 +9,6 @@ authors: ["nolanaguirre"]
 draft: true
 ---
 
-THIS IS STILL A DRAFT DO NOT PUBLISH
-
 First, I need clarify what I mean by type configuration, sadly I'm not talking about implementing a custom data types in C (props to those who's mind jumped there). What I mean by type is quite literally the column in your tables named "type", the simplest example of this being something like:
 
 ```sql
@@ -21,9 +19,30 @@ CREATE TABLE example.accounts(
 );
 ```
 
-Now, the question, how do you constraint the column to a predefined set of values? Let's say for examples sake we have admin, user, and superuser.
+Now, the question, how do you constraint the column to a predefined set of values? Let's say we have admin, user, and superuser.
 
-I'm not sure how most people would implement this. I am fairly certain that most people don't consider how that one column is implemented to be a major design decision, I'm a programmer, so I'll just show you why it matters in code.
+I don't think that most people don't consider how that one column is implemented to be a major design decision. When implementing this column there are are few things to consider, my considerations are listed below:
+
+* How easy is the list to [UPDATE, READ, REUSE]?
+    * Update and read are very important for data driven UI, think a dropdown option list.
+* How easy is the extention of the type to contain more than one value?
+    * Design requirements change and more data maybe be required.
+* How easy is the list, or list value to reference in code?
+    * This is very important the more business logic is in the database.
+* How easy is it to update a value in the set?
+    * Doesn't happen much, but very very important if you use these values in functions.
+
+There is an assumption baked into these considerations that type fields have some business logic considerations.
+If this type column doesn't have any meaning then why constrain it at all?
+
+
+Hopefully now there is a bit of clarity as to why this is a major design decision.
+
+Now to start going over some approaches to solving the issue, the short list is here:
+* Check constraints
+* Enum types
+* FK references (TLDR; This one is the industry standard)
+* My solution (Type management schema)
 
 #### CHECK constraint
 
@@ -36,12 +55,10 @@ CREATE TABLE example.accounts(
 ```
 [Postgresql docs](https://www.postgresql.org/docs/12/ddl-constraints.html)
 
+This approach is so bad that I'll be pretending it doesn't exist for the rest of the article.
 
-This is very bad, do not do this, here's some reasons why:
-* Updating this list requires a constraint change
-* Trying to reuse this type is impossible
-* Trying to list possible values is impossible
-
+The shortcomings of this approach are:
+* ALL OF THEM!
 
 #### ENUM types
 
@@ -59,16 +76,18 @@ CREATE TABLE example.accounts(
 ```
 [Postgresql docs](https://www.postgresql.org/docs/12/datatype-enum.html)
 
-Introducing an enum type is a pretty good way to solve this, but only in some situations. Basically, if you're sure the enum type will never change then go with enums. In most other cases there are better ways.
+Introducing an enum type is an okay way to solve this, but only in very specific situations. Basically, if you're sure the enum type will __never__ change then still probably choose the next option. Even when this holds true, I wouldn't use enums.
 
 The shortcomings of this approach are:
 * Updating enums kind of sucks
-* Enums can only contain a single value
+* Reading enum values requires querying pg_catalog
+* Enums cannot be extended beyond one value
 * Enums values must be known before adding
 
-I realize that the last two of these points is rather odd, seeing as how these are reasons to use an enum, however accepting enums as an answer to the problem assumes full usage knowledge of the column, as well as the limitations of enums.
+The pros of this approach are:
+* Very easy to reference in code
 
-Let me broaden the scope of this example beyond fields named "type" to explain. The issue we are solving here is not unique to account types, lets add country to the account using the same method.
+If you're still not convinced then let's expand past the type field and naively implement countries with enums. Country isn't a great real world example as the data sets associated with countries is large, leading to a full table instead of an enum, but all the real examples that I've encountered are very application specific.
 
 ```sql
 CREATE TYPE example.account_types AS ENUM(
@@ -89,128 +108,206 @@ CREATE TABLE example.accounts(
 )
 ```
 Cool, I have some country data in my account, but the requirements just changed and now I need country, country code, and default currency for the country.
-The limitations of enums is now clear, this is what I mean by "full usage knowledge of the column".
-The country is obviously too rich a dataset to use enums, I hope most people wouldn't implement it in this way.
-This is why I don't use enums, there are times when I could, but I never assume that I fully understand the usage of a column.
+When I just needed the country name it seemed like a great idea, but now that I need more data it is clear that enums won't work.
 
-Complete sideline, there is a way to make this work, however its an odd one. Ill just throw it below.
+#### Foreign key references (FK references)
+This is the industry standard for how to implement this type of constraint. I break this down into two versions "Enum would work" and "Enum would not work".
 
-```sql
-CREATE TYPE example.account_types AS ENUM(
-    "user",
-    "superuser",
-    "admin"
-);
-CREATE TYPE example.countries AS ENUM(
-    "United states",
-    "Texas"
-    ---etc, etc
-);
-CREATE TABLE example.accounts(
-    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    name TEXT NOT NULL,
-    type example.account_types NOT NULL,
-    country example.countries NOT NULL
-)
-
-CREATE TABLE example.countries_table(
-    id example.countries PRIMARY KEY,
-    country_code TEXT,
-    currency TEXT --lets no go down the rabbit hole of implementing a type here
-);
-
-CREATE VIEW example.accounts_with_country AS
-    SELECT
-        account.name,
-        country.country_code
-    FROM
-        example.accounts AS account INNER JOIN
-        example.countries_table AS country ON account.country = country.id;
--- wait, why aren't I just using FK references at this point?
-```
-
-#### table types
-Wait, why aren't I just using FK references at this point?
-Before the example, there are many many ways to implement this. They break down pretty simply into "Enum would probably work" and "Enum would not work".
-
-##### Enum would probably work
+##### Enum would work
 ```sql
 CREATE TABLE example.account_types (
     type TEXT PRIMARY KEY
 );
 INSERT INTO example.account_types(type) VALUES ('user'), ('admin'), ('superuser');
 
+CREATE TABLE example.countries (
+    name TEXT PRIMARY KEY
+);
+INSERT INTO example.countries(name) VALUES ('United states'), ('Texas');
+
+
 CREATE TABLE example.accounts(
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     name TEXT NOT NULL,
-    type TEXT REFERENCES vertalo.account_types(type) NOT NULL
-)
+    type TEXT REFERENCES example.account_types(type) NOT NULL,
+    country TEXT REFERENCES example.countries(name) NOT NULL
+);
 ```
-It's true that this solution has the same basic problems of enums, they each have a much cleaner solution.
-Insert into a table vs altering a type, adding a column to example.account_types vs ...all the work to convert off enums
+This approach to me is what should be used instead of enums (seen with type), however the cons of this approach are a bit harder to explain (seen with country).
+
+When writing code like:
+
+```sql
+FUNCTION example.do_something_based_on_country(account example.accounts) RETURNS VOID AS $$
+BEGIN;
+    IF(account.country = 'United states') THEN
+        -- do some stuff
+    END IF;
+END;
+$$ LANGUAGE PLPGSQL;
+```
+
+You now have an issue with extending the table, it can be done but you have to rewrite functions and it's painful.
+That's why I only use this approach when enums would work.
+
+Side note: The reason extending the country table is so painful is because every table should have an id column that is a UUID (I exclude single column status tables from this).
+I'm aware that this is a debated topic, but this is where I fall on the debate, extending the country table past name means adding the column `id UUID PRIMARY KEY gen_random_uuid()`.
+
+The pros of this approach are:
+* Very easy to reference in code
+* Read is trivial
+* Insert is trivial
+* Updating values is easy enough
 
 ##### Enum would not work
-Once the account_types table is no longer one column, it runs afoul of a design principal that I follow. Tables should have the column `id UUID PRIMARY KEY gen_random_uuid()`.
-Now we are in the "its just another table" territory, however you'd be forgetting why you wanted to use enums so bady.
-Because you want to be able to write queries like
+
+Just treat the type like another table, have an id and FK reference to that.
+The downside here is that you can no longer just check against a string, instead having to query for the id each time.
+
+The downside is as follows:
+
 ```sql
-UPDATE exmaple.accounts SET name = 'bob' WHERE country = 'United states';
--- INSTEAD OF HAVING TO WRITE:
-UPDATE exmaple.accounts SET name = 'bob' WHERE country = (SELECT id FROM example.countries_table WHERE country_name = 'United states');
+FUNCTION example.do_something_based_on_country(account example.accounts) RETURNS VOID AS $$
+BEGIN;
+    IF(account.country = 'United states') THEN
+        -- do some stuff
+    END IF;
+END;
+$$ LANGUAGE PLPGSQL;
 ```
-And I'll admit, this is a very annoying thing to deal with, especially because you can't just code in the id value because it is a UUID. (Think local dev vs production, they have different values)
 
-This method sucks is because it makes development more annoying. Hard coding values is sometimes correct, say you have a function that has a big if block to do some logic based off country, hard coding there is great.
-
-So, how do we remove fix this?
-
-IMMUTABLE PARALLEL SAFE functions!
-
-The idea is pretty simple, in code you want to refer to the country by its name, but structurally that doesn't work, so just create an IMMUTABLE PARALLEL SAFE function that will give you the value.
+Becomes this:
 
 ```sql
-CREATE TABLE example.accounts(
-    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    name TEXT NOT NULL,
-    country UUID REFERENCES example.countries_table(id) NOT NULL
-)
+FUNCTION example.do_something_based_on_country(account example.accounts) RETURNS VOID AS $$
+BEGIN;
+    IF(
+        account.country =
+        (SELECT id FROM example.countries WHERE name = 'United states')
+    ) THEN
+        -- do some stuff
+    END IF;
+END;
+$$ LANGUAGE PLPGSQL;
+```
 
-CREATE TABLE example.countries_table(
+This has a few issues:
+* The table must start with an id, if you convert from a single column table then you still have to update all functions.
+* Querying static values every time feels bad.
+* I want to write `account.country = 'United states'`, not a query
+* Try updating countries.name values
+* __Performance here is not an issue, Postgresql (and most other RDBMS) cache small tables__
+
+This is the way that you should constrain the values of the row,
+
+#### My solution
+Given that the industry standard is to use FK constraints, there isn't a reason to reinvent the wheel.
+However, Vertalo makes heavy use of Postgresql, we currently have more functions performing logic than we do tables.
+Because of this the industry standard leaves a lot to be desired, the main goal of my solution is to make these type values as easy to use as possible.
+
+Basically I want to write code like this:
+```sql
+FUNCTION example.do_something_based_on_country(account example.accounts) RETURNS VOID AS $$
+BEGIN;
+    IF(account.country = configuration.countries__usa()) THEN
+        -- do some stuff
+    END IF;
+END;
+$$ LANGUAGE PLPGSQL;
+```
+
+The idea is pretty simple, in code you want to refer to the country by its name, but structurally that doesn't work, so just create a function that will give you the value and hard code that function in.
+
+Below is an example of a schema build to create these functions:
+```sql
+-- DO NOT STACK-OVERFLOW-STYLE COPY-PASTA THIS CODE, IT IS EXAMPLE CODE!
+CREATE EXTENSION IF NOT EXISTS CITEXT;
+CREATE SCHEMA example;
+
+CREATE TABLE example.countries(
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     country_name TEXT UNIQUE,
-    country_code TEXT,
+    country_code TEXT UNIQUE,
     currency TEXT --lets no go down the rabbit hole of implementing a type here
 );
 
-CREATE TABLE example.types(
-    id CITEXT NOT NULL,
-    value CITEXT NOT NULL
+CREATE SCHEMA configuration;
+
+CREATE TABLE configuration.types(
+    type CITEXT PRIMARY KEY
 );
-CREATE OR REPLACE FUNCTION example.setup_config_function() RETURNS TRIGGER AS $func$
+INSERT INTO configuration.types(type) VALUES
+    ('CITEXT'),
+    ('UUID'),
+    ('INTEGER'),
+    ('BOOLEAN'),
+    ('TEXT'); --incomplete list
+
+CREATE TABLE configuration.configuration_values(
+    id CITEXT PRIMARY KEY NOT NULL CHECK (NOT id ~ '__factory'),
+    value CITEXT NOT NULL,
+    type CITEXT REFERENCES configuration.types(type) NOT NULL
+);
+CREATE OR REPLACE FUNCTION configuration.setup_config_function() RETURNS TRIGGER AS $func$
 BEGIN
-    EXECUTE FORMAT('CREATE OR REPLACE FUNCTION example.%s() RETURNS CITEXT AS $$ SELECT %L::CITEXT; $$ LANGUAGE SQL IMMUTABLE PARALLEL SAFE', NEW.id, NEW.value);
+    EXECUTE FORMAT(
+     'CREATE OR REPLACE FUNCTION configuration.%s() RETURNS %s AS $$ ' ||
+         'SELECT %L::%s; ' ||
+     '$$ LANGUAGE SQL IMMUTABLE PARALLEL SAFE',
+        NEW.id, NEW.type, NEW.value, NEW.type);
     RETURN NEW;
 END;
 $func$ LANGUAGE PLPGSQL;
 
-CREATE TRIGGER example_trigger
-    AFTER INSERT OR UPDATE ON example.types
+CREATE TRIGGER configuration_trigger
+    AFTER INSERT OR UPDATE ON configuration.configuration_values
     FOR EACH ROW
-    EXECUTE PROCEDURE example.setup_config_function();
+    EXECUTE PROCEDURE configuration.setup_config_function();
 
-CREATE OR REPLACE FUNCTION example.generic_type_function(human_id_column TEXT) RETURNS TRIGGER AS $func$
+
+CREATE OR REPLACE FUNCTION configuration.generic_type_function_factory(
+    table_name TEXT,
+    human_id TEXT
+) RETURNS VOID AS $func1$
 BEGIN
-    EXECUTE FORMAT('INSERT INTO example.types(id, value) VALUES (%L, NEW.%s)', NEW.id, human_id_column);
+  EXECUTE FORMAT (
+    'CREATE OR REPLACE FUNCTION configuration.__factory_%s() RETURNS TRIGGER AS $func$ ' ||
+      'DECLARE ' ||
+        'type TEXT; ' ||
+      'BEGIN ' ||
+        'SELECT data_type INTO type FROM information_schema.columns WHERE table_schema = ' ||
+          'TG_TABLE_SCHEMA AND table_name = TG_TABLE_NAME AND column_name = %L; ' ||
+        'EXECUTE FORMAT(''INSERT INTO configuration.configuration_values(id, value, type) ' ||
+          'VALUES (%%L || ''''__'''' || %s, %%L, %%L) ON CONFLICT ON CONSTRAINT configuration_values_pkey DO UPDATE SET value = EXCLUDED.value'' ' ||
+          ', TG_TABLE_NAME, NEW.id, type) USING NEW.%s;' ||
+        'RETURN NEW; ' ||
+      'END; ' ||
+      '$func$ LANGUAGE PLPGSQL; ',
+    REGEXP_REPLACE(table_name, '\.', '_' ,'g'), human_id, '$1', human_id);
 
-    RETURN NEW;
+  EXECUTE FORMAT (
+    'CREATE TRIGGER %s ' ||
+      'AFTER INSERT OR UPDATE ON %s ' ||
+      'FOR EACH ROW' ||
+      'EXECUTE PROCEDURE configuration.__factory_%s(); ',
+    REGEXP_REPLACE(table_name, '\.', '_' ,'g'), table_name,
+    REGEXP_REPLACE(table_name, '\.', '_' ,'g'));
+
 END;
-$func$ LANGUAGE PLPGSQL;
+$func1$ LANGUAGE PLPGSQL;
 
-CREATE TRIGGER countr_example_trigger
-    AFTER INSERT OR UPDATE ON example.countries_table
-    FOR EACH ROW
-    EXECUTE PROCEDURE example.generic_type_function('country_name');
-
+SELECT configuration.generic_type_function_factory('example.countries', 'country_code');
+INSERT INTO example.countries(country_name, country_code, currency)
+    VALUES ('United states', 'USA', 'USD');
 ```
 
-With this setup, you'll automatically get a function that will return the value you want. The method is also immutable so the results will cache, so the internal query will only ever run once.
+The base of this structure is the configuration.configuration_values table.
+This table has a trigger on it that creates a function of name configuration.\<id> with return type \<type> that returns the \<value> passed in.
+The function it creates is `IMMUTABLE PARALLEL SAFE` so performance should be pretty good, and it allows you to abstract the value of any configuration variable behind a function call.
+The original use of this system was environment variables in the database.
+
+The second part of the schema is configuration.generic_type_function_factory. This is a factory that creates functions that wrap the usage of configuration.configuration_values based on a table.
+The function that the factory produces isn't fully build, for instance it doesn't handle deletes or updates very well, but it works for the insert only case well.
+
+
+There are a few other pros that arise from this,
