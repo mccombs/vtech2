@@ -1,5 +1,5 @@
 ---
-title: "Type configuration in Postgresql"
+title: "Type configuration in PostgreSQL"
 type: "post"
 date: 2021-03-24T09:40:21-06:00
 subtitle: ""
@@ -11,7 +11,7 @@ draft: true
 
 First, I need clarify what I mean by type configuration, sadly I'm not talking about implementing a custom data types in C (props to those who's mind jumped there). What I mean by type is quite literally the column in your tables named "type", the simplest example of this being something like:
 
-```sql
+```postgresql
 CREATE TABLE example.accounts(
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     name TEXT NOT NULL,
@@ -44,25 +44,25 @@ Now to start going over some approaches to solving the issue, the short list is 
 * FK references (TLDR; This one is the industry standard)
 * My solution (Type management schema)
 
-#### CHECK constraint
+### CHECK constraint
 
-```sql
+```postgresql
 CREATE TABLE example.accounts(
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     name TEXT NOT NULL,
     type TEXT NOT CHECK (type IN ('admin', 'user', 'superuser'))
 );
 ```
-[Postgresql docs](https://www.postgresql.org/docs/12/ddl-constraints.html)
+See the [PostgreSQL docs](https://www.postgresql.org/docs/12/ddl-constraints.html).
 
 This approach is so bad that I'll be pretending it doesn't exist for the rest of the article.
 
 The shortcomings of this approach are:
 * ALL OF THEM!
 
-#### ENUM types
+### ENUM types
 
-```sql
+```postgresql
 CREATE TYPE example.account_types AS ENUM(
     "user",
     "superuser",
@@ -74,7 +74,7 @@ CREATE TABLE example.accounts(
     type example.account_types NOT NULL
 )
 ```
-[Postgresql docs](https://www.postgresql.org/docs/12/datatype-enum.html)
+See the [PostgreSQL docs](https://www.postgresql.org/docs/12/datatype-enum.html).
 
 Introducing an enum type is an okay way to solve this, but only in very specific situations. Basically, if you're sure the enum type will __never__ change then still probably choose the next option. Even when this holds true, I wouldn't use enums.
 
@@ -89,15 +89,15 @@ The pros of this approach are:
 
 If you're still not convinced then let's expand past the type field and naively implement countries with enums. Country isn't a great real world example as the data sets associated with countries is large, leading to a full table instead of an enum, but all the real examples that I've encountered are very application specific.
 
-```sql
+```postgresql
 CREATE TYPE example.account_types AS ENUM(
     "user",
     "superuser",
     "admin"
 );
 CREATE TYPE example.countries AS ENUM(
-    "United states",
-    "Texas"
+    "United States",
+    "Republic of Texas"
     ---etc, etc
 );
 CREATE TABLE example.accounts(
@@ -110,11 +110,11 @@ CREATE TABLE example.accounts(
 Cool, I have some country data in my account, but the requirements just changed and now I need country, country code, and default currency for the country.
 When I just needed the country name it seemed like a great idea, but now that I need more data it is clear that enums won't work.
 
-#### Foreign key references (FK references)
+### Foreign key references (FK references)
 This is the industry standard for how to implement this type of constraint. I break this down into two versions "Enum would work" and "Enum would not work".
 
-##### Enum would work
-```sql
+#### Enum would work
+```postgresql
 CREATE TABLE example.account_types (
     type TEXT PRIMARY KEY
 );
@@ -123,7 +123,7 @@ INSERT INTO example.account_types(type) VALUES ('user'), ('admin'), ('superuser'
 CREATE TABLE example.countries (
     name TEXT PRIMARY KEY
 );
-INSERT INTO example.countries(name) VALUES ('United states'), ('Texas');
+INSERT INTO example.countries(name) VALUES ('United States'), ('Republic of Texas');
 
 
 CREATE TABLE example.accounts(
@@ -137,7 +137,7 @@ This approach to me is what should be used instead of enums (seen with type), ho
 
 When writing code like:
 
-```sql
+```postgresql
 FUNCTION example.do_something_based_on_country(account example.accounts) RETURNS VOID AS $$
 BEGIN;
     IF(account.country = 'United states') THEN
@@ -159,14 +159,14 @@ The pros of this approach are:
 * Insert is trivial
 * Updating values is easy enough
 
-##### Enum would not work
+#### Enum would not work
 
 Just treat the type like another table, have an id and FK reference to that.
 The downside here is that you can no longer just check against a string, instead having to query for the id each time.
 
 The downside is as follows:
 
-```sql
+```postgresql
 FUNCTION example.do_something_based_on_country(account example.accounts) RETURNS VOID AS $$
 BEGIN;
     IF(account.country = 'United states') THEN
@@ -178,7 +178,7 @@ $$ LANGUAGE PLPGSQL;
 
 Becomes this:
 
-```sql
+```postgresql
 FUNCTION example.do_something_based_on_country(account example.accounts) RETURNS VOID AS $$
 BEGIN;
     IF(
@@ -196,17 +196,17 @@ This has a few issues:
 * Querying static values every time feels bad.
 * I want to write `account.country = 'United states'`, not a query
 * Try updating countries.name values
-* __Performance here is not an issue, Postgresql (and most other RDBMS) cache small tables__
+* __Performance here is not an issue, PostgreSQL (and most other RDBMS) cache small tables__
 
 This is the way that you should constrain the values of the row,
 
-#### My solution
+### My solution
 Given that the industry standard is to use FK constraints, there isn't a reason to reinvent the wheel.
-However, Vertalo makes heavy use of Postgresql, we currently have more functions performing logic than we do tables.
+However, Vertalo makes heavy use of PostgreSQL, we currently have more functions performing logic than we do tables.
 Because of this the industry standard leaves a lot to be desired, the main goal of my solution is to make these type values as easy to use as possible.
 
 Basically I want to write code like this:
-```sql
+```postgresql
 FUNCTION example.do_something_based_on_country(account example.accounts) RETURNS VOID AS $$
 BEGIN;
     IF(account.country = configuration.countries__usa()) THEN
@@ -219,7 +219,7 @@ $$ LANGUAGE PLPGSQL;
 The idea is pretty simple, in code you want to refer to the country by its name, but structurally that doesn't work, so just create a function that will give you the value and hard code that function in.
 
 Below is an example of a schema build to create these functions:
-```sql
+```postgresql
 -- DO NOT STACK-OVERFLOW-STYLE COPY-PASTA THIS CODE, IT IS EXAMPLE CODE!
 CREATE EXTENSION IF NOT EXISTS CITEXT;
 CREATE SCHEMA example;
@@ -311,3 +311,4 @@ The function that the factory produces isn't fully build, for instance it doesn'
 
 
 There are a few other pros that arise from this,
+
