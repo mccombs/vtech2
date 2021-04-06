@@ -16,7 +16,7 @@ This is a simple test designed to evaluate your GraphQL skills. GraphQL is a key
 Using the following info:
 
 -   GraphQL endpoint: https://7onqiz6vuffs3aommsb53zueom.appsync-api.us-east-1.amazonaws.com/graphql
--   API key: da2-4h4jmx5xunfkpmasuyywo7sxyq
+-   API key: da2-xjxr3thnwzd4jido2afokc3hcu 
 -   The endpoint uses basic API key authorization
 
 ...do the following:
