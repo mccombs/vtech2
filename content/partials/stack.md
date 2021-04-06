@@ -9,7 +9,7 @@ private: true
 - GraphQL
 - Node.js
 - Clojure
-- Openresty
+- OpenResty
 - PostgreSQL
 - AWS (multiple services)
 - Terraform/Terragrunt
