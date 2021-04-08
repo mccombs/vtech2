@@ -4,8 +4,8 @@ type: "post"
 date: 2021-04-08T10:23:30-05:00
 subtitle: "Help us find great hires, and get paid for the effort!"
 image: ""
-tags: []
-authors: [williambaxter, kylebrown]
+tags: ["careers"]
+authors: ["williambaxter", "kylebrown"]
 draft: false
 ---
 
@@ -15,7 +15,7 @@ Vertalo is hiring, and we want the best. The best usually come from your network
 ### Who is Eligible?
 This offer is available to non-recruiter members of our network. **If you are a recruiter, this is not for you**.
 
-If you make an introduction that results in a hire within 90 days, Vertalo will pay you a $10k bonus when the hire reaches 90 days of employment in good standing. And Vertalo will also pay the employee $10k! We hope you want to help us succeed and introduce us to the right candidates on that basis alone. But if you just want to make a buck by introducing us to a great candidate, that also works for us.
+If you make a first-time introduction that results in a hire within 90 days, Vertalo will pay you a $10k bonus when the hire reaches 90 days of employment in good standing. And Vertalo will also pay the employee $10k! We hope you want to help us succeed and introduce us to the right candidates on that basis alone. But if you just want to make a buck by introducing us to a great candidate, that also works for us.
 
 ### Who is Vertalo Hiring?
 We have several openings in our product group. See our [careers page](https://tech.vertalo.com/careers) for  details. We work together out of an office in Austin, Texas. These are on-site positions, not remote. If your candidate is living elsewhere but Austin curious, let’s talk! And while you're checking out our careers page, take some time to look at our [blog page](https://tech.vertalo.com/blog) to gain insight into our technology and how we think about it!
