@@ -21,31 +21,34 @@ draft: false
 
 # We use great tools
 
-- [PostgreSQL](https://www.postgresql.org/) 
+- [PostgreSQL](https://www.postgresql.org/)
 
-- [PostGraphile](https://www.graphile.org/) for [graphql](https://graphql.org/)
+- [PostGraphile](https://www.graphile.org/) for [GraphQL](https://graphql.org/)
 
-- [React](https://reactjs.org/) 
+- [React](https://reactjs.org/)
 
-- [FreeBSD](https://www.freebsd.org) 
+- [OpenResty](https://openresty.org/)
 
-- [Terraform](https://www.terraform.io) 
+- [FreeBSD](https://www.freebsd.org)
 
-- [AWS](https://aws.amazon.com) 
+- [Terraform](https://www.terraform.io)
 
-- [github](https://github.com) 
+- [AWS](https://aws.amazon.com)
 
-- [daemontools](https://untroubled.org/daemontools-encore/) 
+- [github](https://github.com)
 
-- [ucspi-tcp](https://cr.yp.to/ucspi-tcp.html) 
+- [daemontools](https://untroubled.org/daemontools-encore/)
 
-- [ucspi-ipc](http://www.superscript.com/ucspi-ipc/) 
+- [ucspi-tcp](https://cr.yp.to/ucspi-tcp.html)
 
-- [trigger](https://github.com/SuperScript/trigger) 
+- [ucspi-ipc](http://www.superscript.com/ucspi-ipc/)
 
-- [pgbouncer](https://www.pgbouncer.org/) 
+- [trigger](https://github.com/SuperScript/trigger)
+
+- [pgbouncer](https://www.pgbouncer.org/)
 
 # We are hiring!
 
 Check out our [careers](/careers) page.
 
+{{< content "ten-ten-part.md" >}}

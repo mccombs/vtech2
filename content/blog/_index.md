@@ -28,4 +28,5 @@ post here in the blog based on what we encounter in our work. Broad and deep
 skills and strong desire to learn are essential. Answer some of the questions
 and show us your strengths.
 
-
+---
+{{< content "ten-ten-part.md" >}}

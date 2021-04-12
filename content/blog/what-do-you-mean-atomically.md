@@ -1,5 +1,5 @@
 ---
-title: "What Do You Mean Atomically"
+title: "What Do You Mean Atomically?"
 type: "post"
 date: 2021-03-24T07:09:25-05:00
 subtitle: "Know your filesystem"
@@ -77,4 +77,3 @@ How does the behavior of `mv` vary if there are multiple directories involved?
 What about multiple file systems?
 
 Can you write a directory-based job queue using atomic updates?
-

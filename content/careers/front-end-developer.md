@@ -49,3 +49,4 @@ draft: false
 
 {{< content covid-19.md >}}
 
+{{< content ten-ten-part.md >}}
