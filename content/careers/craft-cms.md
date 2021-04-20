@@ -2,11 +2,11 @@
 title: "Craft CMS/PHP Developer"
 type: "post"
 date: 2021-04-20T09:31:47-05:00
-subtitle: ""
+subtitle: "Rock solid Craft CMS skills"
 image: ""
 tags: ["careers"]
 authors: []
-draft: true
+draft: false
 ---
 
 **Location:** Austin, TX
