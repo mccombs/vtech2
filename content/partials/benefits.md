@@ -15,6 +15,7 @@ private: true
 - Life insurance
 - Paid time off
 - Vision insurance
+- Free lunch
 
 *Only full-time employees eligible*
 
