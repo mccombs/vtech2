@@ -34,8 +34,8 @@ draft: true
 ### About you:
 - High school diploma or equivalent
 - Authorized to work in the U.S.
-- 4+ years *professional* web development, including HTML, CSS & JavaScript
-- 4+ years *professional* experience in PHP development
+- 3+ years *professional* web development, including HTML, CSS & JavaScript
+- 3+ years *professional* experience in PHP development
 - 2+ years *professional* experience with Craft CMS development
 - **Ambitious** - you are looking specifically for a startup opportunity and the chance to hit it big
 - **Self-starting** - you're OK with some ambiguity and pushing until you figure things out
