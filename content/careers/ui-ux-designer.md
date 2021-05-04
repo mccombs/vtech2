@@ -1,8 +1,8 @@
 ---
-title: "Craft CMS/PHP Developer"
+title: "UI/UX Designer"
 type: "post"
-date: 2021-04-20T09:31:47-05:00
-subtitle: "Rock solid Craft CMS skills"
+date: 2021-05-04T13:31:16-05:00
+subtitle: "Amazing form meets efficient function"
 image: ""
 tags: ["careers"]
 authors: []
@@ -11,7 +11,7 @@ draft: false
 
 **Location:** Austin, TX
 
-**Salary:** $85,000 - $120,000 a year
+**Salary:** $65,000 - $100,000 a year
 
 **Job Type:** Full-time (in-office)
 
@@ -21,22 +21,31 @@ draft: false
 
 ## Full Job Description
 
-{{% job-intro %}}Craft CMS/PHP developer{{% /job-intro %}}
+{{% job-intro %}}UI/UX designer{{% /job-intro %}}
 
 {{< content "our-product.md" >}}
 
-*You will be focusing primarily on our Vertalo I/O (investor on-boarding) application, using Craft CMS along with custom PHP coding, in order to create a beautiful, intuitive interface for investors using the Vertalo platform.*
+*You will be focusing on:*
+- *Designing new UI and UX in a fast-paced environment*
+- *Prototyping new product and reporting interfaces*
+- *Creating white-label-ready designs*
+- *Iterating and simplifying UX across the platform*
 
 {{< content "not-remote.md" >}}
 
 {{< content "stack.md" >}}
 
 ### About you:
+
 - High school diploma or equivalent
 - Authorized to work in the U.S.
-- 3+ years *professional* web development, including HTML, CSS & JavaScript
-- 3+ years *professional* experience in PHP development
-- 2+ years *professional* experience with Craft CMS development
+- 2+ years *professional* experience in UI/UX design
+- Proficient at:
+  - Iterative design
+  - Agile development
+  - HTML/CSS
+  - Freehand and tool-based prototyping
+- Basic JavaScript, usability testing and brand design a plus
 - **Ambitious** - you are looking specifically for a startup opportunity and the chance to hit it big
 - **Self-starting** - you're OK with some ambiguity and pushing until you figure things out
 - **Great at quickly making it work** - we iterate fast and you need to be able to keep up

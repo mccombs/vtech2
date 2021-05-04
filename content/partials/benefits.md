@@ -6,17 +6,15 @@ private: true
 ---
 
 ### Benefits:
-- 401(k)
-- Dental insurance
-- Employee assistance program
-- Flexible spending account
-- Health insurance
-- Health savings account
+
+- Health/Dental/Vision insurance
 - Life insurance
 - Paid time off
-- Vision insurance
-- Free lunch
+- Free lunch provided every day
+- Options for sitting or electronic standing desk
+- Virtually any laptop/monitor(s) configuration you wish
+- Employee assistance program
+- Flexible spending account (FSA)
+- Fried-chicken Fridays!
 
 *Only full-time employees eligible*
-
-

@@ -13,7 +13,7 @@ draft: false
 
 **Salary:** $85,000 - $150,000 a year
 
-**Job Type:** Full-time
+**Job Type:** Full-time (in-office)
 
 **Number of hires for this role:** 1
 
@@ -25,11 +25,11 @@ draft: false
 
 {{< content "our-product.md" >}}
 
+*You will be focusing primarily on infrastructure and devops, rapidly deploying product that appeals to our market, then figuring out how to scale it.*
+
 {{< content "not-remote.md" >}}
 
 {{< content "stack.md" >}}
-
-*You will be focusing primarily on infrastructure and devops, rapidly deploying product that appeals to our market, then figuring out how to scale it.*
 
 ### About you:
 - High school diploma or equivalent
@@ -41,13 +41,10 @@ draft: false
 - **Ambitious** - you are looking specifically for a startup opportunity and the chance to hit it big
 - **Self-starting** - you're OK with some ambiguity and pushing until you figure things out
 - **Great at quickly making it work** - we iterate fast and you need to be able to keep up
-- **Comfortable at an early-stage startup** - startup life isn't for everybody... make sure it's right for you
 - **Hungry** - you're a missionary, not a mercenary
 
 {{< content benefits.md >}}
 
 {{< content schedule-full-time.md >}}
-
-{{< content covid-19.md >}}
 
 {{< content ten-ten-part.md >}}
