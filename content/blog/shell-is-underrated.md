@@ -6,7 +6,7 @@ subtitle: "Essential Unix Skill"
 image: ""
 tags: ["questions","unix"]
 authors: ["williambaxter"]
-draft: true
+draft: false
 ---
 
 How much time do you spend at the command line? Most programmers say they are
@@ -77,5 +77,3 @@ about shell than 80% of programmers. If you are interested in systems
 administration, rapid command-line prototyping, flexible data processing, and
 portable command-line utilities, you are well advised to become an expert in
 shell. It's an essential skill for the unix programmer.
-
-
