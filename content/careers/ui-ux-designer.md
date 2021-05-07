@@ -55,4 +55,3 @@ draft: false
 
 {{< content schedule-full-time.md >}}
 
-{{< content ten-ten-part.md >}}
