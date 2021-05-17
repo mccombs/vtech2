@@ -1,5 +1,5 @@
 ---
-title: "UI/UX Designer"
+title: "UX/UI Designer"
 type: "post"
 date: 2021-05-04T13:31:16-05:00
 subtitle: "Amazing form meets efficient function"
@@ -11,7 +11,7 @@ draft: false
 
 **Location:** Austin, TX
 
-**Salary:** $65,000 - $100,000 a year
+**Salary:** $75,000 - $120,000 a year
 
 **Job Type:** Full-time (in-office)
 
@@ -21,12 +21,12 @@ draft: false
 
 ## Full Job Description
 
-{{% job-intro %}}UI/UX designer{{% /job-intro %}}
+{{% job-intro %}}UX/UI designer{{% /job-intro %}}
 
 {{< content "our-product.md" >}}
 
 *You will be focusing on:*
-- *Designing new UI and UX in a fast-paced environment*
+- *Designing new UX and UI in a fast-paced environment*
 - *Prototyping new product and reporting interfaces*
 - *Creating white-label-ready designs*
 - *Iterating and simplifying UX across the platform*
@@ -39,7 +39,7 @@ draft: false
 
 - High school diploma or equivalent
 - Authorized to work in the U.S.
-- 2+ years *professional* experience in UI/UX design
+- 2+ years *professional* experience in UX/UI design
 - Proficient at:
   - Iterative design
   - Agile development

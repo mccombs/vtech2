@@ -8,7 +8,6 @@ private: true
 - React (latest version)
 - GraphQL
 - Node.js
-- Clojure
 - OpenResty
 - PostgreSQL
 - AWS (multiple services)
