@@ -1,5 +1,5 @@
 ---
-title: "Terraform count Versus for_each"
+title: "Terraform count vs. for_each"
 type: "post"
 date: 2021-04-10T18:21:30-05:00
 subtitle: "Don't count on it"
@@ -58,7 +58,3 @@ Have you adopted Terraform 0.13 use of `for_each` for modules?
 How do you use dependency inversion in your Terraform modules?
 
 Have you used Terragrunt for any projects?
-
-
-
-
