@@ -35,7 +35,7 @@ index of 2. You will not want to encounter this issue more than once!
 
 Fortunately `for_each` does not have this problem. There is no order to
 resources under `for_each`, and creating or destroying individual resources
-leves the others in place.
+leaves the others in place.
 
 It is trivial to convert a list to a map in Terraform:
 ```

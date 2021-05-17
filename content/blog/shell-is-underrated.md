@@ -2,7 +2,7 @@
 title: "Shell Is Underrated"
 type: "post"
 date: 2021-05-04T20:49:38-05:00
-subtitle: "Essential Unix Skill"
+subtitle: "Essential unix skill"
 image: ""
 tags: ["questions","unix"]
 authors: ["williambaxter"]
