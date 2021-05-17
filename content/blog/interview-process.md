@@ -6,7 +6,7 @@ subtitle: "What to expect when you interview with us"
 image: ""
 tags: ["careers"]
 authors: ["kylebrown"]
-draft: true
+draft: false
 ---
 
 ### The Basics
@@ -30,8 +30,10 @@ While this is not a formal "tech interview", we will probe your knowledge in are
 #### The Tech Interview (video call, 30-45 minutes)
 Ok, you've made it through the preliminaries and we feel it's worth going to the next phase: the dreaded tech interview. As a rule, you will speak with our CTO, William Baxter, and he will do a deeper dive into your technical knowledge. Sample code is typically used to test your ability to explain concepts and solve problems.
 
-#### The Finals (in-office, 1-2 hours)
-As the finale to the Vertalo interview process, we will have you into our offices to do another round of technical interview, meet a few folks on the team, and sit down with our CEO, Dave Hendricks, where he will provide you the strategic vision and direction of the company and answer any general questions you may have.
+#### The Finals (in-office*, 1-2 hours)
+As the finale to the Vertalo interview process, we will have you into our offices in Austin to do another round of technical interview, meet a few folks on the team, and sit down with our CEO, Dave Hendricks, where he will provide you the strategic vision and direction of the company and answer any general questions you may have.
+
+\* *If you are remote to the Austin area we can still accommodate you for the final interview! We'll set up a Google Meet video conference, and our team will move in and out of the Meet as needed.*
 
 ### Culture Fit
 Vertalo is a small company. But we have every intention of growing quickly to meet the ever-increasing demand for our technology and services...and we want to do this thoughtfully with an eye toward making sure every person we choose to bring on board not only fits within our culture, but grows and extends it. To this end, we are continuously evaluating candidates on the culture-fit spectrum throughout the interview process. Let's be clear though: We're not looking for people who are just like the rest of us. On the contrary, we are looking for people who can push us to think *outside our box*, but who also share our values of hard work, entrepreneurial spirit, and ownership. Good luck!

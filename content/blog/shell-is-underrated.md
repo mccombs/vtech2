@@ -4,7 +4,7 @@ type: "post"
 date: 2021-05-04T20:49:38-05:00
 subtitle: "Essential unix skill"
 image: ""
-tags: ["questions","unix"]
+tags: ["question","unix"]
 authors: ["williambaxter"]
 draft: false
 ---
