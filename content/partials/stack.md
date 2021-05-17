@@ -1,5 +1,4 @@
 ---
-title: "Stack"
 draft: false
 private: true
 ---

@@ -1,5 +1,4 @@
 ---
-title: "About Us"
 draft: false
 private: true
 ---
@@ -9,5 +8,3 @@ private: true
 - VC-funded
 - Serving paying clients
 - Blazingly fast iterators
-
-

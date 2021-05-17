@@ -44,5 +44,4 @@ draft: false
 
 {{< content benefits.md >}}
 
-{{< content schedule-full-time.md >}}
-
+{{< content interview-process-blog.md >}}

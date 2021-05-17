@@ -21,7 +21,7 @@ If you make a first-time introduction that results in a hire within 90 days, Ver
 Please make sure the candidate is interested. Before you make the direct introduction, message us on LinkedIn and tell us who the candidate is and why they are a great fit for Vertalo. We do not want to spend (that's a polite way of saying "waste") their time or ours unless hiring is a real option. You’re acting as a reference so please be honest and tell us about their strengths, their weaknesses, how you’ve worked with them in the past, and how we can best make them successful.
 
 ### Who is Vertalo Hiring?
-We have several openings in our product group. See our [careers page](https://tech.vertalo.com/careers) for  details. We work together out of an office in Austin, Texas. These are on-site positions, not remote. If your candidate is living elsewhere but Austin curious, let’s talk! And while you're checking out our careers page, take some time to look at our [blog page](https://tech.vertalo.com/blog) to gain insight into our technology and how we think about it!
+We have several openings in our product group. See our [careers page](/careers) for  details. We work together out of an office in Austin, Texas. These are on-site positions, not remote. If your candidate is living elsewhere but Austin curious, let’s talk! And while you're checking out our careers page, take some time to look at our [blog page](/blog) to gain insight into our technology and how we think about it!
 
 Don’t be confined to the open positions we list. If you know someone you think is a perfect fit for us for a role we have not listed, let us know. Help us think outside the box!
 

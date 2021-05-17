@@ -1,6 +1,4 @@
 ---
-title: "Benefits"
-date: 2021-03-16T18:45:09-05:00
 draft: false
 private: true
 ---
