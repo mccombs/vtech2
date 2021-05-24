@@ -1,8 +1,8 @@
 ---
-title: "UX/UI Designer"
+title: "Front-End Engineer"
 type: "post"
-date: 2021-05-04T13:31:16-05:00
-subtitle: "Amazing form meets efficient function"
+date: 2021-02-24T16:23:21-06:00
+subtitle: React and GraphQL
 image: ""
 tags: ["careers"]
 authors: []
@@ -11,41 +11,30 @@ draft: false
 
 **Location:** Austin, TX
 
-**Salary:** $75,000 - $120,000 a year
+**Salary:** $85,000 - $150,000 a year
 
 **Job Type:** Full-time (in-office)
-
-**Number of hires for this role:** 1
 
 ---
 
 ## Full Job Description
 
-{{% job-intro %}}UX/UI designer{{% /job-intro %}}
+{{% job-intro %}}front-end engineer{{% /job-intro %}}
 
 {{< content "our-product.md" >}}
 
-*You will be focusing on:*
-- *Designing new UX and UI in a fast-paced environment*
-- *Prototyping new product and reporting interfaces*
-- *Creating white-label-ready designs*
-- *Iterating and simplifying UX across the platform*
+*You will be focusing primarily on the front-end of our application, rapidly deploying product that appeals to our market, then figuring out how to scale it.*
 
 {{< content "not-remote.md" >}}
 
 {{< content "stack.md" >}}
 
 ### About you:
-
 - High school diploma or equivalent
 - Authorized to work in the U.S.
-- 2+ years *professional* experience in UX/UI design
-- Proficient at:
-  - Iterative design
-  - Agile development
-  - HTML/CSS
-  - Freehand and tool-based prototyping
-- Basic JavaScript, usability testing and brand design a plus
+- 4+ years *professional* experience in software development
+- 2+ years *professional* experience with JavaScript, React & Node
+- 1+ years *professional* experience with GraphQL
 - **Ambitious** - you are looking specifically for a startup opportunity and the chance to hit it big
 - **Self-starting** - you're OK with some ambiguity and pushing until you figure things out
 - **Great at quickly making it work** - we iterate fast and you need to be able to keep up

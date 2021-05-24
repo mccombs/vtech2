@@ -1,5 +1,5 @@
 ---
-title: "Craft CMS/PHP Developer"
+title: "Craft CMS/PHP Engineer"
 type: "post"
 date: 2021-04-20T09:31:47-05:00
 subtitle: "Rock solid Craft CMS skills"
@@ -15,13 +15,11 @@ draft: false
 
 **Job Type:** Full-time (in-office)
 
-**Number of hires for this role:** 1
-
 ---
 
 ## Full Job Description
 
-{{% job-intro %}}Craft CMS/PHP developer{{% /job-intro %}}
+{{% job-intro %}}Craft CMS/PHP engineer{{% /job-intro %}}
 
 {{< content "our-product.md" >}}
 

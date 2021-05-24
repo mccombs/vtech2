@@ -10,7 +10,7 @@ private: true
 - Paid time off
 - Free lunch provided every day
 - Options for sitting or electronic standing desk
-- Virtually any laptop/monitor(s) configuration you wish
+- Virtually any laptop/monitor configuration you wish
 - Employee assistance program
 - Flexible spending account (FSA)
 - Fried-chicken Fridays!

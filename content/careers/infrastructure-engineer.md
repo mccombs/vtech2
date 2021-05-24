@@ -15,8 +15,6 @@ draft: false
 
 **Job Type:** Full-time (in-office)
 
-**Number of hires for this role:** 1
-
 ---
 
 ## Full Job Description
