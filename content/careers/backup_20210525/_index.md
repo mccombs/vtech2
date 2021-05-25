@@ -40,6 +40,4 @@ offices here in Austin, TX.*
 
 {{< content benefits.md >}}
 
-{{< content jobs-page.md >}}
-
 {{< content ten-ten-part.md >}}

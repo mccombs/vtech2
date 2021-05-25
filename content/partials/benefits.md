@@ -4,7 +4,6 @@ private: true
 ---
 
 ### Benefits:
-
 - Health/Dental/Vision insurance
 - Life insurance
 - Paid time off
@@ -14,5 +13,3 @@ private: true
 - Employee assistance program
 - Flexible spending account (FSA)
 - Fried-chicken Fridays!
-
-*Only full-time employees eligible*
