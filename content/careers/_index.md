@@ -9,12 +9,12 @@ authors: []
 draft: false
 ---
 
-Vertalo is growing and hiring in Austin! The successful recruit will work hand
-in glove with the CTO and a highly skilled technical team. The upside
-potential is extremely large for the right candidate in terms of both cash
-compensation and equity. This is no mere job. It requires a founder's caring
-and curious mentality, and a burning desire to ship code to shape the future
-of finance.
+Vertalo is growing and [hiring in Austin](https://jobs.lever.co/vertalo)!
+The successful recruit will work hand in glove with the CTO and a highly
+skilled technical team. The upside potential is extremely large for the right
+candidate in terms of both cash compensation and equity. This is no mere job.
+It requires a founder's caring and curious mentality, and a burning desire to
+ship code to shape the future of finance.
 
 Our mission is to **connect and enable the digital asset ecosystem**. Our
 product is the Vertalo platform, a data management system for digital assets.
