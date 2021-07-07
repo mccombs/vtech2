@@ -17,7 +17,7 @@ This offer is available to non-recruiter members of our network. **If you are a 
 
 If you make a first-time introduction that results in a hire within 90 days, Vertalo will pay you a $10k bonus when the hire reaches 90 days of employment in good standing. And Vertalo will also pay the employee $10k! We hope you want to help us succeed and introduce us to the right candidates on that basis alone. But if you just want to make a buck by introducing us to a great candidate, that also works for us.
 
-**PLEASE NOTE: THIS OFFER ONLY APPLIES TO VERTALO PRODUCT JOBS. VERTALO JOB POSTINGS ARE SPECIFICALLY DENOTED IF THEY ARE ELIGIBLE FOR THIS OFFER.** 
+**PLEASE NOTE: THIS OFFER ONLY APPLIES TO VERTALO PRODUCT JOBS. VERTALO JOB POSTINGS ARE SPECIFICALLY DENOTED IF THEY ARE ELIGIBLE FOR THIS OFFER. PLEASE CONTACT A VERTALO REPRESENTATIVE IF YOU HAVE ANY QUESTIONS.** 
 
 ### How to Make the Introduction
 Please make sure the candidate is interested. Before you make the direct introduction, message us on LinkedIn and tell us who the candidate is and why they are a great fit for Vertalo. We do not want to spend (that's a polite way of saying "waste") their time or ours unless hiring is a real option. You’re acting as a reference so please be honest and tell us about their strengths, their weaknesses, how you’ve worked with them in the past, and how we can best make them successful.
