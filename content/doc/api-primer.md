@@ -5,7 +5,7 @@ date: 2021-08-03T14:39:00-06:00
 subtitle: "An Introduction to the Vertalo API"
 images: ""
 tags: ["api"]
-authors: ["kylebrown"]
+authors: ["kylebrown", "anishleekkala"]
 draft: false
 ---
 
