@@ -326,34 +326,80 @@ Vertalo will issue clients testing and production API credentials (a client ID a
 Once you've been issued a client ID and client secret, you will be able to generate a bearer token which you will then use to associate your access with a specific role that has been configured for your account.
 
 Request:
+```
+curl 'https://sandbox.vertalo.com/authenticate/token/login?client_id=<client ID>&client_secret=<client secret>'
+```
 
-curl 'https://www.sandbox.vertalo.com/authenticate/token/login?client_id=**<client ID\>**&client_secret=**<client secret\>**'
-
-![](/api-primer/token-login-response.png)
+Response:
+```
+{
+    "token": {
+        "token_type": "Bearer",
+        "access_token": "<token>"
+    },
+    "roles": {
+        "data": [
+            {
+                "last_name": "example",
+                "user_role": "account_admin",
+                "account_type": "broker",
+                "account_name": "Example",
+                "user_id": "<UUID>",
+                "users_account_id": "<UUID>",
+                "first_name": "admin",
+                "account_id": "<UUID>",
+                "slug": "example",
+                "email": "admin@example.vertalo.com"
+            }
+        ]
+    }
+}
+```
 
 #### /authenticate/token/role
 
 The */token/role* endpoint allows you to select a role from a collection of available roles configured for your account. You will assume the rights of the chosen role when performing actions via the API. Using the response from the */token/login* endpoint, use the values of the *access_token* and *users_account_id* fields to construct a request to the */token/role* endpoint:
 
 Request:
-
-curl -H 'Authorization: Bearer **<access_token\>**' 'https://www.sandbox.vertalo.com/authenticate/token/role/**<users_account_id\>**'
+```
+curl -H 'Authorization: Bearer <access_token>' 'https://sandbox.vertalo.com/authenticate/token/role/<users_account_id\>'
+```
 
 Response:
-
-![](/api-primer/token-role-response.png)
+```
+{
+    "token": {
+        "token_type": "Bearer",
+        "access_token": "<token>"
+    }
+}
+```
 
 #### /token/api/v2/graphql
 
 Using the response from the */token/role* endpoint, use the value of the *access_token* field to construct a request to the */token/api/v2/graphql* endpoint in which you issue a properly formed GraphQL query to the Vertalo API.
 
 Request:
-
-curl --location --request POST 'https://www.sandbox.vertalo.com/token/api/v2/graphql' \--header 'Authorization: Bearer **<access_token\>**' --header 'Content-Type: application/json' --data-raw '**{"query":"query {\n allAssets {\n nodes {\n name\n type\n status\n authorizedTotal\n}\n}\n}", "variables":{}}**'
+```
+curl --location --request POST 'https://sandbox.vertalo.com/token/api/v2/graphql' --header 'Authorization: Bearer <access_token>' --header 'Content-Type: application/json' --data-raw '{"query": "query {\n allAssets {\n nodes {\n name\n type\n status\n authorizedTotal\n}\n}\n}", "variables":{}}'
+```
 
 Response:
 
-![](/api-primer/token-graphql-response.png)
+```
+{
+    "data": {
+        "allAssets": {
+            "nodes": [{
+                "name": "Example Preferred Equity",
+                "type": "Preferred Equity",
+                "status": "active",
+                "authorizedTotal": "5000000"
+            }]
+        }
+    }
+}
+```
 
 ### Further Support
 
