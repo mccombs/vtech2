@@ -124,6 +124,8 @@ Understanding the parent/child relationships expressed above is essential. And w
 
 In many cases, you will want to add or update information to your Vertalo configuration. In GraphQL, this is known as a *mutation*. As this name implies, you are altering something in your configuration. This covers a range of possibilities, including adding a new asset and/or round, adding an investor to a cap table, or deploying a new token, all of which fall under the general heading of "primary issuance".
 
+**[Note: There may be instances where, for a particular object, you see duel mutations in the API in the form of "make\<Object\>" and "create\<Object\>". In these instances, use the "make\<Object\>" form. For example, use "makeDistribution" rather than "createDistribution".]**
+
 #### Create an Asset
 
 ![Create Asset](/api-primer/create-asset.png)
