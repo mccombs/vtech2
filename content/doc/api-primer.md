@@ -9,7 +9,7 @@ authors: ["kylebrown", "anishleekkala"]
 draft: false
 ---
 
-*August, 2021*
+*October, 2021*
 
 As an "API first" company, Vertalo has designed its platform in an open and flexible way. This makes it possible for our partners to integrate with our platform through the Vertalo API when and where it's needed. This could range from pulling or pushing data for a specific purpose to a full scale implementation of a custom UI. (The Vertalo portal is, in fact, a reference application built on top of our own API.)
 
@@ -312,6 +312,37 @@ query {
                     }
               }
        }
+}
+```
+
+#### Other Useful Queries
+
+This allows you to drill down into a specific investor's holdings along with information on when the holding was originally issued (**createdOn**) and the cost basis (**price**).
+```
+query {
+      accountByTypeAndEmail(type: "investor" email: "example.investor@example.com") {
+            holdingsByInvestorId {
+                  nodes {
+                        id
+                        amount
+                        issuanceEventsByHoldingId {
+                              nodes {
+                                    id
+                                    createdOn
+                                    securityBySecurityId {
+                                          id
+                                          roundsBySecurityId {
+                                                nodes {
+                                                      id
+                                                      price
+                                                }
+                                          }
+                                    }
+                              }
+                        }
+                  }
+            }
+      }
 }
 ```
 
