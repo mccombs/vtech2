@@ -292,57 +292,71 @@ mutation {
 | matchedOn | Timestamp as String | trade match time | OPTIONAL |
 
 
+#### allSecurities
 
-#### securityById
-
-This allows you to query a security by its ID.
+This allows you to fetch all securities (and respective holdings) for which you are the listing ATS.
 ```
 query {
-       securityById(id: "f133b5d8-b24a-483c-88e4-a9d7913cadf9") {
-              id
-              holdingsBySecurityId {
-                    nodes {
-                           id
-                           amount
-                           accountByInvestorId {
-                                  id
-                                  name
-                                  email
-                           }
-                    }
-              }
-       }
+  allSecurities {
+    nodes {
+      id
+      holdingsBySecurityId {
+        nodes {
+          id
+          investorId
+          amount
+          createdOn
+          accountByInvestorId {
+            id
+            name
+            email
+          }
+        }
+      }
+    }
+  }
 }
 ```
 
-#### Other Useful Queries
+#### securityById
 
-This allows you to drill down into a specific investor's holdings along with information on when the holding was originally issued (**createdOn**) and the cost basis (**price**).
+This allows you to query an individual security (and respective holdings) by its ID.
 ```
 query {
-      accountByTypeAndEmail(type: "investor" email: "example.investor@example.com") {
-            holdingsByInvestorId {
-                  nodes {
-                        id
-                        amount
-                        issuanceEventsByHoldingId {
-                              nodes {
-                                    id
-                                    createdOn
-                                    securityBySecurityId {
-                                          id
-                                          roundsBySecurityId {
-                                                nodes {
-                                                      id
-                                                      price
-                                                }
-                                          }
-                                    }
-                              }
-                        }
-                  }
-            }
+  securityById(id: "f133b5d8-b24a-483c-88e4-a9d7913cadf9") {
+    id
+    holdingsBySecurityId {
+      nodes {
+        id
+        investorId
+        amount
+        createdOn
+        accountByInvestorId {
+          id
+          name
+          email
+        }
       }
+    }
+  }
+}
+```
+
+### holdingsByInvestorID
+
+This allows you to drill down into a specific investor's holdings (with an optional filter for only holdings that are greater than zero).
+```
+query {
+  accountByTypeAndEmail(type: "investor", email: "example.investor@example.com") {
+    holdingsByInvestorId(filter: {amount: {greaterThan: "0"}}) {
+      nodes {
+        id
+        securityId
+        amount
+        createdOn
+      }
+    }
+  }
 }
 ```
 
