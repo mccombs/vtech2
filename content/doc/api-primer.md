@@ -342,7 +342,7 @@ query {
 }
 ```
 
-### holdingsByInvestorId
+#### holdingsByInvestorId
 
 This allows you to drill down into a specific investor's holdings (with an optional filter for only holdings that are greater than zero).
 ```
