@@ -25,6 +25,8 @@ draft: false
 
 - [PostGraphile](https://www.graphile.org/) for [GraphQL](https://graphql.org/)
 
+- [Sqitch](https://sqitch.org/)
+
 - [React](https://reactjs.org/)
 
 - [OpenResty](https://openresty.org/)

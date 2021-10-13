@@ -22,7 +22,7 @@ help:
 	@echo ""
 	@echo "weblocal: serve content on localhost:1313, a la production (no drafts)"
 	@echo ""
-	@echo "website: build content for the deployed site"
+	@echo "website: build content for deployment"
 	@echo ""
 	@echo "deploy: deploy content for the site to AWS"
 	@echo ""
