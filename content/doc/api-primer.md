@@ -221,7 +221,7 @@ mutation{
             amount:"20.00"                                    //OBSOLETE
         }],
         usdPrice:{
-            ammount:"20.00"                                   //SHOULD BE PROVIDED
+            amount:"20.00"                                    //SHOULD BE PROVIDED
         },
         tradePrice:{                                          //SHOULD BE PROVIDED
             currency:"USD",                                   //REQUIRED IF PRESENT
