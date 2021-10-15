@@ -293,8 +293,8 @@ mutation{
 | tags[].id              | String                    | Used as the tag                                                                     | REQUIRED if tags is present                       |
 | tags[].data            | Object                    | Extra data to be stored with the tag                                                | OPTIONAL                                          |
 | data                   | Object                    | Any extra data to be included with the trade as a whole                             | OPTIONAL                                          |
-| settledOn              | Timestamp as String       | Used to convey the trade's settlement time                                          | OPTIONAL                                          |
-| matchedOn              | Timestamp as String       | Used to convey the trade's match time                                               | REQUIRED                                          |
+| matchedOn              | Timestamp as String       | Used to convey the trade's match time                                               | OPTIONAL                                          |
+| settledOn              | Timestamp as String       | Used to convey the trade's settlement time                                          | REQUIRED                                          |
 
 #### settledOn
 Settled on will be used to populate the issuedOn field in the created holding
