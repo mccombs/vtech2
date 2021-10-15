@@ -199,98 +199,113 @@ ATS/Exchange integrations are standardized through an API derived from the Verta
 API calls are ordered, and will be preserved and executed in the order in which they are received. The platform will take instructions typically without regard to the state in which the system may be left. For example, a transfer could result in a securities balance for an investor going below zero. Because of the asynchronous nature of transactions, this state will be allowed (though a warning will be issued).
 
 #### trade
-
+```
 This allows you to fully construct a trade between a "from" account and a "to" account.
-```
-mutation {
-      trade({
-            securityId: "f133b5d8-b24a-483c-88e4-a9d7913cadf9",
-            from: {
-                   account: {
-                           id: "ac65eec2-a065-4777-ae0d-f2192fb6a164"
-                    }
-                    holdings: [
-                           {   
-                                id: "dda84718-b2c8-44f5-a263-49aab553b063",
-                                amount: "1000.00"
-                           }
-                    ]
-            },
-            fee: {
-                  currency: "USD",
-                  amount: "200.00"
-            },
-            price: [
-                  {
-                        currency: "USD",
-                        amount: "20.00"
-                  }  
-            ],
-            to: {
-                 account: {
-                        id: "cac079a1-9f00-4e81-82bf-4e6a2e9d45ac"
-                 }
-            },
-            tags: [
-                 {
-                        id: "my-tag-for-this-trade",
-                        data: {}
-                 }
-            ],
-            data: {},
-            matchedOn: "2021-07-28T20:09:28.951Z",
-            settledOn: "2021-07-28T20:09:30.951Z"
-      }) {
-            trade {
-                   id
-                   data
-                   securityBySecurityID {
-                     id
-                   }
-                   transfersByTradeId {
-                          nodes {
-                                 id
-                                 holdingByFromHoldingId {
-                                        id
-                                        amount
-                                 }
-                          }
-                   }
+mutation{
+    trade({
+        from:{                                                //REQUIRED
+            account:{                                         //REQUIRED
+                id:"ac65eec2-a065-4777-ae0d-f2192fb6a164"     //REQUIRED
             }
-        }  
+            holdings:[{                                       //REQUIRED
+                id:"44588593-2626-4380-897e-f1c4935d0d76",    //REQUIRED
+                amount:"2.00"                                 //REQUIRED
+            }]
+        },
+        fee:{                                                 //SHOULD BE PROVIDED
+            currency:"USD",                                   //REQUIRED IF PRESENT
+            amount:"200.00"                                   //REQUIRED IF PRESENT
+        },
+        price:[{                                              //OBSOLETE, PLEASE USE usdPrice and tradePrice
+            currency:"USD",                                   //OBSOLETE
+            amount:"20.00"                                    //OBSOLETE
+        }],
+        usdPrice:{
+            ammount:"20.00"                                   //SHOULD BE PROVIDED
+        },
+        tradePrice:{                                          //SHOULD BE PROVIDED
+            currency:"USD",                                   //REQUIRED IF PRESENT
+            amount:"20.00"                                    //REQUIRED IF PRESENT
+        },
+        to:{                                                  //REQUIRED
+            account:{                                         //REQUIRED                                   
+                id:"7a729360-f39f-49a2-894f-2727a8803b47",    //NOT AVAILABLE FOR NEW INVESTOR, SHOULD BE USED FOR EXISTING INVESTORS
+                email:"newinvestortwo@example.com"            //REQUIRED FOR NEW INVESTOR (will be created), SHOULD NOT BE USED FOR EXISTING
+            }
+        },
+        tags:[{                                               //OPTIONAL
+            id:'my-tag-for-07/25/2021',                       //REQUIRED IF PRESENT
+            data:{}                                           //OPTIONAL
+        }],
+        data:{},                                              //OPTIONAL
+        matchedOn:"2021-07-28T20:09:28.951Z",                 //OPTIONAL
+        settledOn:"2021-07-28T20:09:30.951Z",                 //REQUIRED
+    }){
+    trade{
+      id
+      data
+      transfersByTradeId{
+        nodes{
+          id
+          securityBySecurityId{
+            id
+          }
+          holdingByFromHoldingId{
+            id
+            amount
+          }
+        }
+      }
     }
+  }
+}
 ```
+
 
 **Trade Fields**
 
-| Path | Type | Usage | Required |
-| ----------- | ----------- | ----------- | ----------- |
-| securityId | UUID | security identifier | REQUIRED |
-| from | Object | "from" data | REQUIRED |
-| from.account | Object | account data |  REQUIRED |
-| from.account.id | UUID | account identifier | REQUIRED |
-| from.holdings | Array | holdings data | REQUIRED |
-| from.holdings[].id | UUID | holding identifier | REQUIRED |
-| from.holdings[].amount| Number as String | holding amount being transferred | REQUIRED,  NON-ZERO, NON-NEGATIVE |
-| fee | Object | trade fee data | SHOULD BE PROVIDED |
-| fee.currency | Currency alpha3 as String | currency fee is expressed in | REQUIRED if fee is present |
-| fee.amount | Number as String | fee amount | REQUIRED if fee is present |
-| price | Array | price data | SHOULD BE PROVIDED |
-| price[].currency | Currency alpha3 as String | currency price is expressed in | REQUIRED if price is present |
-| price[].amount | Number as String | price amount | REQUIRED if price is present |
-| to | Object | "to" data |  REQUIRED |
-| to.account | Object | account data | REQUIRED |
-| to.account.id | UUID | account identifier | SHOULD BE used whenever possible |
-| to.account.email | String | investor email | MUST BE present when creating new investor; cannot appear with id |
-| to.account.name | String | investor name | MUST BE present when creating new investor; cannot appear with id |
-| to.account.jurisdiction | Country alpha3 as String | investor jurisdiction | MUST BE present when creating new investor; cannot appear with id |
-| tags | Array | tags associated with the trade | OPTIONAL |
-| tags[].id | String | tag identifier | REQUIRED if tags is present |
-| tags[].data | Object | extra data associated with a tag | OPTIONAL |
-| data | Object | extra data to be associated with the trade as a whole | OPTIONAL |
-| settledOn | Timestamp as String | trade settlement time | OPTIONAL |
-| matchedOn | Timestamp as String | trade match time | OPTIONAL |
+| Path                   | type                      | Usage                                                                               | Required                                          |
+|------------------------|---------------------------|-------------------------------------------------------------------------------------|---------------------------------------------------|
+| from                   | Object                    | Used to convey a trades from data                                                   | REQUIRED                                          |
+| from.account           | Object                    | Used to convey a transfers from account data                                        | REQUIRED                                          |
+| from.account.id        | UUID                      | Used to identify the from account                                                   | REQUIRED                                          |
+| from.holdings          | Array                     | Used to convey the from holdings data                                               | REQUIRED                                          |
+| from.holdings[].id     | UUID                      | Used to identify the form holdings                                                  | REQUIRED                                          |
+| from.holdings[].amount | Number as String          | The amount being transfered out of the holding                                      | REQUIRED, NON ZERO, NON NEGATIVE                  |
+| fee                    | Object                    | Used to convey any trading fee that is associated with the trade                    | SHOULD BE PROVIDED                                |
+| fee.currency           | Currency code as String   | The currency the fee is in                                                          | REQUIRED if fee is present                        |
+| fee.amount             | Number as String          | The fee amount                                                                      | REQUIRED if fee is present                        |
+| price                  | Array                     | Used to convey price paid data, total price not price per share                     | OBSOLETE                                          |
+| price[].currency       | Currency alpha3 as String | The currency the price is in                                                        | OBSOLETE                                          |
+| price[].amount         | Number as String          | The amount paid                                                                     | OBSOLETE                                          |
+| usdPrice               | Object                    | Used to convey the trades USD price per unit                                        | SHOULD BE PROVIDED                                |
+| usdPrice.amount        | Number as String          | The amount per unit in USD                                                          | REQUIRED if usdPrice is present                   |
+| tradePrice             | Currency alpha3 as String | The price paid in the currency it was paid in for the trade                         | SHOULD BE PROVIDED                                |
+| tradePrice.currency    | Currency alpha3 as String | The currency the price is in                                                        | REQUIRED if tradePrice is present                 |
+| tradePrice.amount      | Number as String          | The price per unit paid                                                             | REQUIRED if tradePrice is present                 |
+| to                     | Object                    | Used to convey a trades to data                                                     | REQUIRED                                          |
+| to.account             | Object                    | Used to convey a transfers to account data                                          | REQUIRED                                          |
+| to.account.id          | UUID                      | Used to identify the from account, both id and email cannot be present              | SHOULD BE used when using a prexisting account    |
+| to.account.email       | String                    | Used for the creation of a new investor account                                     | MUST BE used when the to user is new to Vertalo   |
+| to.account.name        | String                    | Used for the creation of a new investor account                                     | MUST BE used when the to user is new to Vertalo   |
+| to.account.jurisdiction| Country Alpha3 String     | Used for the creation of a new investor account                                     | MUST BE used when the to user is new to Vertalo   |
+| tags                   | Array                     | Used for associating tags with the trade, or transfers                              | OPTIONAL                                          |
+| tags[].id              | String                    | Used as the tag                                                                     | REQUIRED if tags is present                       |
+| tags[].data            | Object                    | Extra data to be stored with the tag                                                | OPTIONAL                                          |
+| data                   | Object                    | Any extra data to be included with the trade as a whole                             | OPTIONAL                                          |
+| settledOn              | Timestamp as String       | Used to convey the trade's settlement time                                          | OPTIONAL                                          |
+| matchedOn              | Timestamp as String       | Used to convey the trade's match time                                               | REQUIRED                                          |
 
+#### settledOn
+Settled on will be used to populate the issuedOn field in the created holding
+
+#### usdPrice
+usdPrice will be used to populate purchase_price and purchase_currency in the created holdings
+
+usdPrice is pinned to usd so that an apples to apples comparison can be made, the price of one bitcoin is not static so it's hard to compare.
+
+#### tradePrice
+tradePrice is recorded for the investors benefit, however we cannot do btc to usd comparisons, so this field is only to inform the issuer on vertalo what they actually paid in, not the value of the trade
 
 #### allSecurities
 
