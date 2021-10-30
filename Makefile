@@ -9,28 +9,32 @@ subdirs := $(sort $(notdir $(shell find content -mindepth 1 -maxdepth 1 -type d)
 
 ####
 
+define help_text :=
+
+  Targets:
+
+  help: print this message
+    Use the AWS_PROFILE env var to set profile for any target
+
+  setup: install hugo
+
+  local: serve content on localhost:1313
+
+  weblocal: serve content on localhost:1313, a la production (no drafts)
+
+  website: build content for deployment
+
+  deploy: deploy content for the site to AWS
+
+  new.SUBDIR.%: create a new SUBDIR entry draft with name \$$*.md
+    SUBDIR is in {$(subdirs)}
+
+
+
+endef
+
 help:
-	@echo ""
-	@echo "Targets:"
-	@echo ""
-	@echo "help: print this message"
-	@echo "  Use the AWS_PROFILE env var to set profile for any target"
-	@echo ""
-	@echo "setup: install hugo"
-	@echo ""
-	@echo "local: serve content on localhost:1313"
-	@echo ""
-	@echo "weblocal: serve content on localhost:1313, a la production (no drafts)"
-	@echo ""
-	@echo "website: build content for deployment"
-	@echo ""
-	@echo "deploy: deploy content for the site to AWS"
-	@echo ""
-	@echo "new.SUBDIR.%: create a new SUBDIR entry draft with name \$$*.md"
-	@echo "  SUBDIR is in {$(subdirs)}"
-	@echo ""
-	@echo ""
-	@echo ""
+	@$(info $(help_text))
 
 # Assume dpkg for linux-64
 setup:
