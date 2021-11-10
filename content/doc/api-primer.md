@@ -201,56 +201,57 @@ API calls are ordered, and will be preserved and executed in the order in which 
 #### trade
 ```
 This allows you to fully construct a trade between a "from" account and a "to" account.
-mutation{
+mutation {
     trade({
-        from:{                                                //REQUIRED
-            account:{                                         //REQUIRED
-                id:"ac65eec2-a065-4777-ae0d-f2192fb6a164"     //REQUIRED
+        securityId: "f133b5d8-b24a-483c-88e4-a9d7913cadf9",     //REQUIRED
+        from: {                                                 //REQUIRED
+            account: {                                          //REQUIRED
+                id: "ac65eec2-a065-4777-ae0d-f2192fb6a164"      //REQUIRED
             }
-            holdings:[{                                       //REQUIRED
-                id:"44588593-2626-4380-897e-f1c4935d0d76",    //REQUIRED
-                amount:"2.00"                                 //REQUIRED
+            holdings: [{                                        //REQUIRED
+                id: "44588593-2626-4380-897e-f1c4935d0d76",     //REQUIRED
+                amount: "2.00"                                  //REQUIRED
             }]
         },
-        fee:{                                                 //SHOULD BE PROVIDED
-            currency:"USD",                                   //REQUIRED IF PRESENT
-            amount:"200.00"                                   //REQUIRED IF PRESENT
+        fee: {                                                  //SHOULD BE PROVIDED
+            currency: "USD",                                    //REQUIRED IF PRESENT
+            amount: "200.00"                                    //REQUIRED IF PRESENT
         },
-        price:[{                                              //OBSOLETE, PLEASE USE usdPrice and tradePrice
-            currency:"USD",                                   //OBSOLETE
-            amount:"20.00"                                    //OBSOLETE
+        price: [{                                               //OBSOLETE, PLEASE USE usdPrice and tradePrice
+            currency: "USD",                                    //OBSOLETE
+            amount: "20.00"                                     //OBSOLETE
         }],
-        usdPrice:{
-            amount:"20.00"                                    //SHOULD BE PROVIDED
+        usdPrice: {
+            amount: "20.00"                                     //SHOULD BE PROVIDED
         },
-        tradePrice:{                                          //SHOULD BE PROVIDED
-            currency:"USD",                                   //REQUIRED IF PRESENT
-            amount:"20.00"                                    //REQUIRED IF PRESENT
+        tradePrice: {                                           //SHOULD BE PROVIDED
+            currency: "USD",                                    //REQUIRED IF PRESENT
+            amount: "20.00"                                     //REQUIRED IF PRESENT
         },
-        to:{                                                  //REQUIRED
-            account:{                                         //REQUIRED                                   
-                id:"7a729360-f39f-49a2-894f-2727a8803b47",    //NOT AVAILABLE FOR NEW INVESTOR, SHOULD BE USED FOR EXISTING INVESTORS
-                email:"newinvestortwo@example.com"            //REQUIRED FOR NEW INVESTOR (will be created), SHOULD NOT BE USED FOR EXISTING
+        to: {                                                   //REQUIRED
+            account: {                                          //REQUIRED                                   
+                id: "7a729360-f39f-49a2-894f-2727a8803b47",     //NOT AVAILABLE FOR NEW INVESTOR, SHOULD BE USED FOR EXISTING INVESTORS
+                email: "newinvestortwo@example.com"             //REQUIRED FOR NEW INVESTOR (will be created), SHOULD NOT BE USED FOR EXISTING
             }
         },
-        tags:[{                                               //OPTIONAL
-            id:'my-tag-for-07/25/2021',                       //REQUIRED IF PRESENT
-            data:{}                                           //OPTIONAL
+        tags: [{                                                //OPTIONAL
+            id: "my-tag-for-07/25/2021",                        //REQUIRED IF PRESENT
+            data: {}                                            //OPTIONAL
         }],
-        data:{},                                              //OPTIONAL
-        matchedOn:"2021-07-28T20:09:28.951Z",                 //OPTIONAL
-        settledOn:"2021-07-28T20:09:30.951Z",                 //REQUIRED
-    }){
-    trade{
+        data: {},                                               //OPTIONAL
+        matchedOn: "2021-07-28T20:09:28.951Z",                  //OPTIONAL
+        settledOn: "2021-07-28T20:09:30.951Z",                  //REQUIRED
+    }) {
+    trade {
       id
       data
-      transfersByTradeId{
-        nodes{
+      transfersByTradeId {
+        nodes {
           id
-          securityBySecurityId{
+          securityBySecurityId {
             id
           }
-          holdingByFromHoldingId{
+          holdingByFromHoldingId {
             id
             amount
           }
@@ -266,6 +267,7 @@ mutation{
 
 | Path                   | type                      | Usage                                                                               | Required                                          |
 |------------------------|---------------------------|-------------------------------------------------------------------------------------|---------------------------------------------------|
+| securityId             | UUID                      | Used to identify the security                                                       | REQUIRED                                          |
 | from                   | Object                    | Used to convey a trades from data                                                   | REQUIRED                                          |
 | from.account           | Object                    | Used to convey a transfers from account data                                        | REQUIRED                                          |
 | from.account.id        | UUID                      | Used to identify the from account                                                   | REQUIRED                                          |
