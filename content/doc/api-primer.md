@@ -270,42 +270,38 @@ mutation{
 | from.account           | Object                    | Used to convey a transfers from account data                                        | REQUIRED                                          |
 | from.account.id        | UUID                      | Used to identify the from account                                                   | REQUIRED                                          |
 | from.holdings          | Array                     | Used to convey the from holdings data                                               | REQUIRED                                          |
-| from.holdings[].id     | UUID                      | Used to identify the form holdings                                                  | REQUIRED                                          |
-| from.holdings[].amount | Number as String          | The amount being transfered out of the holding                                      | REQUIRED, NON ZERO, NON NEGATIVE                  |
+| from.holdings[].id     | UUID                      | Used to identify the from holdings                                                  | REQUIRED                                          |
+| from.holdings[].amount | Number as String          | The amount being transferred out of the holdings                                    | REQUIRED, NON ZERO, NON NEGATIVE                  |
 | fee                    | Object                    | Used to convey any trading fee that is associated with the trade                    | SHOULD BE PROVIDED                                |
 | fee.currency           | Currency code as String   | The currency the fee is in                                                          | REQUIRED if fee is present                        |
 | fee.amount             | Number as String          | The fee amount                                                                      | REQUIRED if fee is present                        |
-| price                  | Array                     | Used to convey price paid data, total price not price per share                     | OBSOLETE                                          |
+| price                  | Array                     | Used to convey price paid data (total price not price per share)                    | OBSOLETE                                          |
 | price[].currency       | Currency alpha3 as String | The currency the price is in                                                        | OBSOLETE                                          |
 | price[].amount         | Number as String          | The amount paid                                                                     | OBSOLETE                                          |
-| usdPrice               | Object                    | Used to convey the trades USD price per unit                                        | SHOULD BE PROVIDED                                |
+| usdPrice               | Object                    | Used to convey the trade's USD price per unit                                       | SHOULD BE PROVIDED                                |
 | usdPrice.amount        | Number as String          | The amount per unit in USD                                                          | REQUIRED if usdPrice is present                   |
 | tradePrice             | Currency alpha3 as String | The price paid in the currency it was paid in for the trade                         | SHOULD BE PROVIDED                                |
 | tradePrice.currency    | Currency alpha3 as String | The currency the price is in                                                        | REQUIRED if tradePrice is present                 |
 | tradePrice.amount      | Number as String          | The price per unit paid                                                             | REQUIRED if tradePrice is present                 |
-| to                     | Object                    | Used to convey a trades to data                                                     | REQUIRED                                          |
-| to.account             | Object                    | Used to convey a transfers to account data                                          | REQUIRED                                          |
-| to.account.id          | UUID                      | Used to identify the from account, both id and email cannot be present              | SHOULD BE used when using a prexisting account    |
+| to                     | Object                    | Used to convey a trade's to data                                                    | REQUIRED                                          |
+| to.account             | Object                    | Used to convey a transfer's to account data                                         | REQUIRED                                          |
+| to.account.id          | UUID                      | Used to identify the from account, both id and email cannot be present              | SHOULD BE used when using a pre-existing account  |
 | to.account.email       | String                    | Used for the creation of a new investor account                                     | MUST BE used when the to user is new to Vertalo   |
 | to.account.name        | String                    | Used for the creation of a new investor account                                     | MUST BE used when the to user is new to Vertalo   |
 | to.account.jurisdiction| Country Alpha3 String     | Used for the creation of a new investor account                                     | MUST BE used when the to user is new to Vertalo   |
-| tags                   | Array                     | Used for associating tags with the trade, or transfers                              | OPTIONAL                                          |
-| tags[].id              | String                    | Used as the tag                                                                     | REQUIRED if tags is present                       |
+| tags                   | Array                     | Used for associating tags with the trade or transfers                               | OPTIONAL                                          |
+| tags[].id              | String                    | Used to identify the tag                                                            | REQUIRED if tags is present                       |
 | tags[].data            | Object                    | Extra data to be stored with the tag                                                | OPTIONAL                                          |
 | data                   | Object                    | Any extra data to be included with the trade as a whole                             | OPTIONAL                                          |
 | matchedOn              | Timestamp as String       | Used to convey the trade's match time                                               | OPTIONAL                                          |
 | settledOn              | Timestamp as String       | Used to convey the trade's settlement time                                          | REQUIRED                                          |
 
-#### settledOn
-Settled on will be used to populate the issuedOn field in the created holding
 
-#### usdPrice
-usdPrice will be used to populate purchase_price and purchase_currency in the created holdings
+*settledOn* will be used to populate the issuedOn field in the created holding.
 
-usdPrice is pinned to usd so that an apples to apples comparison can be made, the price of one bitcoin is not static so it's hard to compare.
+*usdPrice* will be used to populate purchase_price and purchase_currency in the created holdings. It is pinned to USD so that an apples to apples comparison can be made.
 
-#### tradePrice
-tradePrice is recorded for the investors benefit, however we cannot do btc to usd comparisons, so this field is only to inform the issuer on vertalo what they actually paid in, not the value of the trade
+*tradePrice* is recorded for the investor's benefit. We do not do cryptocurrency to USD conversions, so this field is only to inform the issuer what the investor actually paid in, not the value of the trade.
 
 #### allSecurities
 
