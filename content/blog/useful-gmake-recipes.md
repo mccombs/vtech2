@@ -4,7 +4,7 @@ type: "post"
 date: 2021-10-30T10:33:16-05:00
 subtitle: "Reusable targets for gmake"
 image: ""
-tags: ["unix"]
+tags: ["gnu","unix"]
 authors: [williambaxter]
 draft: false
 ---
