@@ -565,7 +565,7 @@ Response:
 }
 ```
 
-In this example, the mutation mints tokens to investors wallets based on their holding IDs. The blockchain address of the newly minted token is returned in the payload.
+In this example, the mutation mints tokens to investor wallets based on their holding IDs. The blockchain address of the newly minted token is returned in the payload.
 
 ## Making Use of Conditions and Filters
 
