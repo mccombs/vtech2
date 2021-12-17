@@ -163,7 +163,7 @@ Response:
 }
 ```
 
-In this example, the mutation creates a new asset with the required properties. It also shows a return payload requested as part of the mutation. This is a powerful feature of GraphQL which gives the developer a high degree of control over what information is returned as a result of a mutation.
+In this example, the mutation creates a new asset with the required properties. It also shows a return payload requested as part of the mutation. This is a powerful feature of GraphQL which gives the developer a high degree of control over what information is returned as a result of a mutation. The ID of the newly created asset is returned in the payload.
 
 ### Create a Round
 ```
@@ -202,7 +202,7 @@ Response:
 }
 ```
 
-In this example, the mutation creates a new round that is associated with the asset created in the previous example. It also shows a return payload requested as part of the mutation. Note that the *asset ID* returned from the previous example of the creation of an asset is used in the creation of the round; this joins the round to the asset.
+In this example, the mutation creates a new round that is associated with the asset created in the previous example. The ID of the newly created round is returned in the payload. Note that the *asset ID* returned from the previous example of the creation of an asset is used in the creation of the round; this joins the round to the asset.
 
 ### Create an Allocation
 ```
@@ -241,7 +241,7 @@ Response:
 
 An *allocation* is a grouping of distributions within a round that allows the issuer to distinguish groups of investors within a round, for example, domestic vs other, or tokenized vs non-tokenized.
 
-In this example, the mutation creates a new allocation (a grouping of investment under a round) that is associated with the round created in the previous example. It also shows a return payload requested as part of the mutation. Note that the *round ID* returned from the previous example of the creation of a round is used in the creation of the allocation; this joins the allocation to the round.
+In this example, the mutation creates a new allocation (a grouping of investment under a round) that is associated with the round created in the previous example. The ID of the newly created allocation is returned in the payload. Note that the *round ID* returned from the previous example of the creation of a round is used in the creation of the allocation; this joins the allocation to the round.
 
 ## Investor Setup
 
@@ -322,9 +322,9 @@ Response:
 }
 ```
 
-In this example, the mutation creates a new distribution that is associated with an allocation. It also shows a return payload requested as part of the mutation. Note that the *allocation ID* returned from the previous example of the creation of an allocation is used in the creation of the distribution; this joins the distribution to the allocation.
+In this example, the mutation creates a new distribution that is associated with an allocation. The ID and status of the newly created distribution is returned in the payload. Note that the *allocation ID* returned from the previous example of the creation of an allocation is used in the creation of the distribution; this joins the distribution to the allocation.
 
-The value of the *status* field in the previous response indicates that the distribution was successfully created and placed into a "drafted" state. This is now a *pro forma* entry on a cap table for the corresponding allocation, *but the distribution will not yet appear in the investor's portfolio in the Vertalo investor portal.* When appropriate, you may update the status of the distribution to "open" (investor qualifications met, waiting for funding) or "closed" (funding has been received, available for issuance), either of which will make the distribution visible to the investor in the Vertalo portal.
+The value of the *status* field in the response indicates that the distribution was successfully created and placed into a "drafted" state. This is now a *pro forma* entry on a cap table for the corresponding allocation, *but the distribution will not yet appear in the investor's portfolio in the Vertalo investor portal.* When appropriate, you may update the status of the distribution to "open" (investor qualifications met, waiting for funding) or "closed" (funding has been received, available for issuance), either of which will make the distribution visible to the investor in the Vertalo portal.
 
 ### Update a Distribution
 
@@ -397,10 +397,175 @@ Response:
 }
 ```
 
-In this example, the mutation formally issues shares to the investor based on a distribution ID to create a *holding*. This transition from *distribution* to *holding* effectively locks the shares and binds them to the investor. Note that the *distribution ID* returned from the previous example of the creation of a distribution is used in the creation of the holding.
+In this example, the mutation formally issues shares to the investor based on a distribution ID to create a *holding*. This transition from *distribution* to *holding* effectively locks the shares and binds them to the investor. The ID of the newly created holding is returned in the payload. Note that the *distribution ID* returned from the previous example of the creation of a distribution is used in the creation of the holding.
 
 **[Important! Only distributions that are closed may be converted to holdings.]**
 
+
+## Tokenization and Blockchain Integration
+
+The Vertalo API supports the full security token lifecycle:
+- initialization and smart contract deployment
+- minting to an investor's wallet
+- secondary trade and transfer
+
+### Initialize a Token
+```
+Request:
+
+mutation {
+  makeToken (
+    input: {
+      _tokenId: "7ae8c3b7-43a4-4ee3-99c8-812e101d3859"
+      _chain: "ethereum-ganache"
+      _name: "Series A Token"
+      _symbol: "SERIESA"
+    }
+  ) {
+    token {
+      contractsByTokenId {
+        nodes {
+          id
+        }
+      }
+    }
+  }
+}
+```
+```
+Response:
+
+{
+  "data": {
+    "makeToken": {
+      "token": {
+        "contractsByTokenId": {
+          "nodes": [
+            {
+              "id": "48e2486f-a988-4f92-9794-4df831c03879"
+            }
+          ]
+        }
+      }
+    }
+  }
+}
+```
+
+In this example, the mutation initializes a new token for a round. *There is a one-to-one relationship between round and token*, with a token ID being automatically assigned at the creation of a round. The ID of the smart contract associated to the token is returned in the payload. The value for *_tokenId* can be derived as follows:
+```
+Request:
+
+query {
+  roundById (id: "3fb91ee2-eb13-4308-b4ca-1c968a6546a4") {
+    tokenByTokenId {
+      id
+    }
+  }
+}
+```
+```
+Response:
+
+{
+  "data": {
+    "roundById": {
+      "tokenByTokenId": {
+        "id": "7ae8c3b7-43a4-4ee3-99c8-812e101d3859"
+      }
+    }
+  }
+}
+```
+
+### Deploy a Contract
+```
+Request:
+
+mutation {
+  deployContract (
+    input: {
+      _contractId: "48e2486f-a988-4f92-9794-4df831c03879"
+    }
+  ) {
+    contract {
+      contractAddress
+    }
+  }
+}
+```
+```
+Response:
+
+{
+  "data": {
+    "deployContract": {
+      "contract": {
+        "contractAddress": "0x6537d77941ef111b4c853d38a03fe9478bc36d41"
+      }
+    }
+  }
+}
+```
+
+In this example, the mutation deploys a smart contract (associated to a token) to the blockchain and returns the on-chain contract address in the payload. Note that the *contract ID* returned from the previous example of the initialization of a token is used in the deployment of the contract.
+
+
+### Mint Tokens to Wallets
+```
+Request:
+
+mutation {
+  tokenizeHoldings (
+    input: {
+      holdingIds: [
+        "67ebd6a5-3ffa-4336-b683-31d1d4251a2c"
+      ]
+    }
+  ) {
+    holdings {
+      investorId
+      issuedOn
+      holdingBlockchainAddressesByHoldingId {
+        nodes {
+          blockchainAddressId
+          blockchainAddressByBlockchainAddressId {
+            address
+          }
+        }
+      }
+    }
+  }
+}
+```
+```
+Response:
+
+{
+  "data": {
+    "tokenizeHoldings": {
+      "holdings": [
+        {
+          "investorId": "d6fb328d-2426-4689-98d0-8a0a03679a03",
+          "issuedOn": "2021-12-16T22:05:46.253555+00:00",
+          "holdingBlockchainAddressesByHoldingId": {
+            "nodes": [
+              {
+                "blockchainAddressId": "28978c2d-d5e6-498c-a462-fd19b803b8d2",
+                "blockchainAddressByBlockchainAddressId": {
+                  "address": "0x99032ac273e339e3fd26e27d26146c0fe668b927"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+}
+```
+
+In this example, the mutation mints tokens to investors wallets based on their holding IDs. The blockchain address of the newly minted token is returned in the payload.
 
 ## Making Use of Conditions and Filters
 
