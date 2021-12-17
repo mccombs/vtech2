@@ -28,9 +28,9 @@ draft: false
 
 As an "API first" company, Vertalo has designed its platform in an open and flexible way. This makes it possible for our partners to integrate with our platform through the Vertalo API when and where it's needed. This could range from pulling or pushing data for a specific purpose to a full scale implementation of a custom UI. (The Vertalo portal is, in fact, a reference application built on top of our own API.)
 
-The key to understanding how our API operates is understanding the [GraphQL specification](spec.graphql.org/) originally conceived of by Facebook in 2012. GraphQL is now an open standard that any vendor can implement. (Click [here](https://graphql.org/code/) to see a current list of implementations.) It is very different from the traditional REST API model and the overhead that is frequently associated with having to make multiple round trips to various endpoints in order to gather the data you want. Instead, a GraphQL implementation exposes a single endpoint that can accept complex queries based on a uniform query language. It is then up to the server-side GraphQL implementation to resolve the query, fetching or writing data as directed across one or more data sources.
+The key to understanding how our API operates is understanding the [GraphQL specification](spec.graphql.org/) originally conceived of by Facebook in 2012. GraphQL is now an open standard that any vendor can implement. (Click [here](https://graphql.org/code/) to see a current list of implementations.) It is very different from the traditional REST API model and the overhead that is frequently associated with having to make multiple round trips to various endpoints in order to perform the actions you want. Instead, a GraphQL implementation exposes a single endpoint that can accept complex queries and mutations based on a uniform query language. It is then up to the server-side GraphQL implementation to resolve the request, fetching or writing data as directed across one or more data sources.
 
-Vertalo has established a GraphQL schema that allows our integration partners to query information from the Vertalo platform as well as write information to the platform (known as a *mutation* in GraphQL nomenclature).
+Vertalo has established a GraphQL schema that allows our integration partners to query information from the Vertalo platform as well as write information to the platform.
 
 This primer is by no means exhaustive, but is meant to get you well-grounded in the basics of the Vertalo API so that you can explore further on your own.
 
@@ -60,7 +60,7 @@ This nomenclature is borrowed from discrete mathematics and applies to graphs. T
 
 ### Getting Going
 
-Your starting point for exploring the Vertalo API is the Vertalo Sandbox. The Sandbox is a fully functioning version of our production environment and allows participants to model assets, rounds and distributions to investors in a safe and controlled manner. As an organization that is interested in leveraging the Vertalo API, the Sandbox also offers a way to explore and try out the API through an interactive interface. Follow these steps to access this environment:
+Your starting point for exploring the Vertalo API is the Vertalo Sandbox. The Sandbox is a fully functioning version of our production environment and allows participants to model assets, rounds and other entities to investors in a safe and controlled manner. For an organization that is interested in leveraging the Vertalo API, the Sandbox also offers a way to explore and try out the API through an interactive interface. Follow these steps to access this environment:
 
 1. Login to your Sandbox account (as an Issuer) at [https://sandbox.vertalo.com](https://sandbox.vertalo.com).
 
@@ -251,7 +251,7 @@ Response:
 }
 ```
 
-An *allocation* is a grouping of distributions within a round that allows the issuer to distinguish groups of investors within a round, for example, domestic vs other.
+An *allocation* is a grouping of distributions within a round that allows the issuer to distinguish groups of investors within a round, for example, domestic vs other, or tokenized vs non-tokenized.
 
 In this example, the mutation creates a new allocation (a grouping of investment under a round) that is associated with the round created in the previous example. It also shows a return payload requested as part of the mutation. Note that the *round ID* returned from the previous example of the creation of a round is used in the creation of the allocation; this joins the allocation to the round.
 
