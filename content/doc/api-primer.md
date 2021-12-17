@@ -136,7 +136,7 @@ Understanding the parent/child relationships expressed above is essential. And w
 
 ### Asset Creation and Configuration
 
-For first order of business in the Vertalo platform is to define and configure the assets that you wish to make available for investment to your investors. This covers a range of actions including adding a new asset, defining a round under an asset, and defining an allocation under a round.
+The first order of business in the Vertalo platform is to define and configure the assets that you wish to make available for investment to your investors. This covers a range of actions including adding a new asset, defining a round under an asset, and defining an allocation under a round.
 
 **[Note: There may be instances where, for a particular object, you see dual mutations in the API in the form of "make\<Object\>" and "create\<Object\>". In these instances, use the "make\<Object\>" form. For example, use "makeRound" rather than "createRound".]**
 
