@@ -8,21 +8,9 @@ tags: ["api"]
 authors: ["kylebrown", "anishleekkala"]
 draft: false
 ---
-
 *January, 2022*
 
-## Table of Contents
-1. [Introduction](#introduction)
-2. [PostGraphile](#postgraphile)
-3. [Getting Going](#getting-going)
-4. [The Vertalo Object Model](#the-vertalo-object-model)
-5. [Asset Creation and Configuration](#asset-creation-and-configuration)
-6. [Investor Setup](#investor-setup)
-7. [Primary Issuance](#primary-issuance)
-8. [Making Use of Conditions and Filters](#making-use-of-conditions-and-filters)
-9. [Post-Issuance Trading and Transfer](#post-issuance-trading-and-transfer)
-10. [Access via API Key](#access-via-api-key)
-11. [Coding Samples](#coding-samples)
+{{< table_of_contents >}}
 
 ## Introduction
 
@@ -40,7 +28,7 @@ This primer is by no means exhaustive, but is meant to get you well-grounded in 
 
 - GraphQL tutorial: [https://graphql.org/learn](https://graphql.org/learn)
 
-### PostGraphile
+## PostGraphile
 
 The Vertalo GraphQL API is derived from a collection of PostgreSQL databases that underpin our platform. We also use an open-source framework called [PostGraphile](https://www.graphile.org/postgraphile/introduction), which is able to interpret a PostgreSQL schema and then auto-generate a GraphQL schema from it. It is recommended that you gain some familiarity with PostGraphile in order to understand how the Vertalo API is created. The PostGraphile documentation provides a roadmap to what you'll see in the Vertalo API. In particular, the following concepts are important to your understanding of how to interact with our API:
 
@@ -58,7 +46,7 @@ This nomenclature is borrowed from discrete mathematics and applies to graphs. T
 
 - GraphQL Cursor Connection Specification: [https://relay.dev/graphql/connections.htm](https://relay.dev/graphql/connections.htm)
 
-### Getting Going
+## Getting Going
 
 Your starting point for exploring the Vertalo API is the Vertalo Sandbox. The Sandbox is a fully functioning version of our production environment and allows participants to model assets, rounds and other entities to investors in a safe and controlled manner. For an organization that is interested in leveraging the Vertalo API, the Sandbox also offers a way to explore and try out the API through an interactive interface. Follow these steps to access this environment:
 
@@ -81,7 +69,7 @@ You will be presented with an interactive GraphQL explorer called *GraphiQL*. Us
 
 To execute a query or mutation you've composed in the left pane, click the "play" button just above the left pane.
 
-### The Vertalo Object Model
+## The Vertalo Object Model
 
 The Vertalo object model consists of the following major components:
 
@@ -102,19 +90,19 @@ The Vertalo object model consists of the following major components:
 
 As you peruse the API documentation in GraphiQL, you'll see these objects appearing in root-level fieldnames, type names, and other areas of the API. The examples below represent a good starting point for your exploration of the Vertalo API.
 
-#### Query Assets
+### Query Assets
 
 ![Query Assets](/api-primer/query-assets.png)
 
 In this example, the query returns a list of assets. Notice that the shape of the result (expressed as JSON) matches the shape of the query. This is an important feature of GraphQL.
 
-#### Query Accounts
+### Query Accounts
 
 ![Query Assets](/api-primer/query-accounts.png)
 
 In this example, the query returns a list of accounts including the fields you requested (collectively known as the query's *payload*). Notice the use of arguments ("first") to refine the results of the query. In this case, only the first 3 accounts are returned. The type definition of a root field (as shown in the Documentation Explorer) will describe any arguments that the field supports.
 
-#### Exploring the Object Hierarchy
+### Exploring the Object Hierarchy
 
 ![Query Assets](/api-primer/object-hierarchy.png)
 
@@ -134,13 +122,13 @@ In this example, the query traverses the Vertalo object hierarchy in order to ex
 
 Understanding the parent/child relationships expressed above is essential. And while you may create this hierarchy either manually using the Vertalo portal or programmatically using the API, you must ensure that parent objects exist before attempting to create related child objects. Also, you should notice how the *shape* of the resulting data matches the *shape* of the query in the above example. This is a feature of GraphQL. In the case of this example, the object hierarchy is expressed both in the query and the result.
 
-### Asset Creation and Configuration
+## Asset Creation and Configuration
 
 The first order of business in the Vertalo platform is to define and configure the assets that you wish to make available for investment to your investors. This covers a range of actions including adding a new asset, defining a round under an asset, and defining an allocation under a round.
 
 **[Note: There may be instances where, for a particular object, you see dual mutations in the API in the form of "make\<Object\>" and "create\<Object\>". In these instances, use the "make\<Object\>" form. For example, use "makeRound" rather than "createRound".]**
 
-#### Create an Asset
+### Create an Asset
 ```
 Request:
 
@@ -177,7 +165,7 @@ Response:
 
 In this example, the mutation creates a new asset with the required properties. It also shows a return payload requested as part of the mutation. This is a powerful feature of GraphQL which gives the developer a high degree of control over what information is returned as a result of a mutation.
 
-#### Create a Round
+### Create a Round
 ```
 Request:
 
@@ -216,7 +204,7 @@ Response:
 
 In this example, the mutation creates a new round that is associated with the asset created in the previous example. It also shows a return payload requested as part of the mutation. Note that the *asset ID* returned from the previous example of the creation of an asset is used in the creation of the round; this joins the round to the asset.
 
-#### Create an Allocation
+### Create an Allocation
 ```
 Request:
 
@@ -255,11 +243,11 @@ An *allocation* is a grouping of distributions within a round that allows the is
 
 In this example, the mutation creates a new allocation (a grouping of investment under a round) that is associated with the round created in the previous example. It also shows a return payload requested as part of the mutation. Note that the *round ID* returned from the previous example of the creation of a round is used in the creation of the allocation; this joins the allocation to the round.
 
-### Investor Setup
+## Investor Setup
 
 Adding investors to the platform requires that you supply some basic information. The investor's email address acts as a *primary key*.
 
-#### Create an Investor
+### Create an Investor
 ```
 Request:
 
@@ -294,11 +282,11 @@ Response:
 
 In this example, the mutation creates a new customer and corresponding investor account. At this point the investor is *not* associated with any investment opportunity on the platform.
 
-### Primary Issuance
+## Primary Issuance
 
 The process of formally issuing securities to investors through the Vertalo platform involves a series of actions which offer a tremendous amount of flexibility.
 
-#### Create a Distribution
+### Create a Distribution
 
 A *distribution* is an initial assignment of a quantity of units (typically shares) to an investor within an allocation.
 ```
@@ -338,7 +326,7 @@ In this example, the mutation creates a new distribution that is associated with
 
 The value of the *status* field in the previous response indicates that the distribution was successfully created and placed into a "drafted" state. This is now a *pro forma* entry on a cap table for the corresponding allocation, *but the distribution will not yet appear in the investor's portfolio in the Vertalo investor portal.* When appropriate, you may update the status of the distribution to "open" (investor qualifications met, waiting for funding) or "closed" (funding has been received, available for issuance), either of which will make the distribution visible to the investor in the Vertalo portal.
 
-#### Update a Distribution
+### Update a Distribution
 
 When a distribution is initially created for an investor the status of the distribution is set to "drafted", indicating that this is a pro forma distribution that the issuer will approve in order to allow the investor to proceed through the investment process. This will typically involve the investor completing qualification requirements (KYC/AML, for instance), signing documents, and providing payment. While in a drafted state, the distribution *will not* appear in the investor's portfolio view within the Vertalo portal (though it could appear in your custom investor UI if you choose). When appropriate, the distribution may be updated to "open" (to allow the investor to commence the investment process) or "closed" (to indicate that the investor has provided all necessary documents and payment). This can be done via the API as follows:
 ```
@@ -375,7 +363,7 @@ Response:
 
 The above example shows how we have "patched" a distribution to update the status from "drafted" to "closed".
 
-#### Create a Holding
+### Create a Holding
 ```
 Request:
 
@@ -414,7 +402,7 @@ In this example, the mutation formally issues shares to the investor based on a 
 **[Important! Only distributions that are closed may be converted to holdings.]**
 
 
-### Making Use of Conditions and Filters
+## Making Use of Conditions and Filters
 
 In previous examples, you will have noticed the use of the *condition* keyword at various points in the query, which provides a rudimentary means to filter for specific values. The Vertalo API also supports the *filter* keyword, which provides even more advanced capabilities.
 ```
@@ -494,7 +482,7 @@ Response:
 
 Please refer to the documentation found in Vertalo's GraphiQL API explorer for details on how to make use of conditions and filters.
 
-### Post-Issuance Trading and Transfer
+## Post-Issuance Trading and Transfer
 
 *This section is still under development and will be updated periodically. The sample GraphQL mutations and queries should be considered "pre-release" and subject to change.*
 
@@ -502,7 +490,7 @@ ATS/Exchange integrations are standardized through an API derived from the Verta
 
 API calls are ordered, and will be preserved and executed in the order in which they are received. The platform will take instructions typically without regard to the state in which the system may be left. For example, a transfer could result in a securities balance for an investor going below zero. Because of the asynchronous nature of transactions, this state will be allowed (though a warning will be issued).
 
-#### trade
+### trade
 ```
 This allows you to fully construct a trade between a "from" account and a "to" account:
 
@@ -610,7 +598,7 @@ mutation {
 
 *tradePrice* is recorded for the investor's benefit. We do not do cryptocurrency to USD conversions, so this field is only to inform the issuer what the investor actually paid in, not the value of the trade.
 
-#### allSecurities
+### allSecurities
 
 This allows you to fetch all securities (and respective holdings) for which you are the listing ATS.
 ```
@@ -668,7 +656,7 @@ Response:
 }
 ```
 
-#### securityById
+### securityById
 
 This allows you to query an individual security (and respective holdings) by its ID.
 ```
@@ -720,7 +708,7 @@ Response:
 }
 ```
 
-#### holdingsByInvestorId
+### holdingsByInvestorId
 
 This allows you to drill down into a specific investor's holdings (with an optional filter for only holdings that are greater than zero).
 ```
@@ -760,7 +748,7 @@ Response:
 }
 ```
 
-### Access via API Key
+## Access via API Key
 
 Vertalo will issue clients testing and production API credentials (a client ID and client secret) for server-side programmatic access to their account(s). The process of using the credentials to claim the required access tokens and issue queries to the Vertalo API is described below. We strongly encourage you to use your regular login credentials to make use of Vertalo's interactive *GraphiQL interface* (described in detail above in this document), in addition to your testing API credentials, to test your queries in your sandbox environment before implementing them in production. Tokens you receive from the Vertalo API endpoints have an expiration time of 60 minutes, after which you will receive HTTP 401 errors. You will need to manage your use of tokens to account for expiration and request new tokens as needed.
 
@@ -768,7 +756,7 @@ Vertalo will issue clients testing and production API credentials (a client ID a
 
 *Your ability to leverage the different capabilities exposed through the Vertalo API will vary depending on the rights granted to your API credentials. Not all services will be available.*
 
-#### /authenticate/token/login
+### /authenticate/token/login
 
 Once you've been issued a client ID and client secret, you will be able to generate a bearer token which you will then use to associate your access with a specific role that has been configured for your account.
 
@@ -803,7 +791,7 @@ Response:
 }
 ```
 
-#### /authenticate/token/role
+### /authenticate/token/role
 
 The */token/role* endpoint allows you to select a role from a collection of available roles configured for your account. You will assume the rights of the chosen role when performing actions via the API. Using the response from the */token/login* endpoint, use the values of the *access_token* and *users_account_id* fields to construct a request to the */token/role* endpoint:
 
@@ -822,7 +810,7 @@ Response:
 }
 ```
 
-#### /token/api/v2/graphql
+### /token/api/v2/graphql
 
 Using the response from the */token/role* endpoint, use the value of the *access_token* field to construct a request to the */token/api/v2/graphql* endpoint in which you issue a properly formed GraphQL query to the Vertalo API.
 
@@ -848,15 +836,15 @@ Response:
 }
 ```
 
-### Further Support
+## Further Support
 
 If you require further support in your exploration of the Vertalo API, please contact Vertalo at [integrations\@vertalo.com](mailto:integrations@vertalo.com).
 
-### Coding Samples
+## Coding Samples
 
 These coding examples are meant to provide you with guidance on how to program the process of authenticating and authorizing with the Vertalo platform via the API, and show examples of how to submit queries to the Vertalo GraphQL endpoint. You will need to request your API credentials from Vertalo before you can access the API.
 
-#### PHP
+### PHP
 
 *[This example makes use of the cURL extension for PHP. This extension must be enabled in your PHP configuration to use it.]*
 
@@ -951,7 +939,7 @@ These coding examples are meant to provide you with guidance on how to program t
 ?>
 ```
 
-#### Python
+### Python
 
 *[This example makes use of an open-source GraphQL client module for Python, **gql**. You must first install this module into your Python environment to use it.]*
 
